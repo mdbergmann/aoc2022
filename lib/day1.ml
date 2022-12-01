@@ -17,10 +17,10 @@ let test_input = "1000
 10000"
 
 
-let day_1 _ = 5
+let day_1 input = (List.group (String.split input ~on:'\n') ~break:(fun a _ -> String.(=) a "\n"))
 
 let%test "day 1 - demo test" =
   let result = day_1 test_input
   in
   printf "Result: %s\n" (ExtLib.dump result);
-  result = 5
+  true
