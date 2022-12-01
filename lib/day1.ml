@@ -40,3 +40,12 @@ let%test "day 1 - demo test" =
   in
   printf "Result: %s\n" (ExtLib.dump result);
   result = 24000
+
+let prep_input =
+  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day1_1.txt"
+
+let%test "day 1 - full test" =
+  let result = day_1 prep_input
+  in
+  printf "Result: %s\n" (ExtLib.dump result);
+  true
