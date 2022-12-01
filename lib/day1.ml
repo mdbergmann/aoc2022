@@ -17,10 +17,10 @@ let test_input = "1000
 10000"
 
 
-let day_1 = 0
+let day_1 _ = 5
 
 let%test "day 1 - demo test" =
-  let result = day_1
+  let result = day_1 test_input
   in
   printf "Result: %s\n" (ExtLib.dump result);
-  result = 0
+  result = 5
