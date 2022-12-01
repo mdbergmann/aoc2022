@@ -22,7 +22,7 @@ let inspect x = ExtLib.print x; x
 let day_1 input select_fun =
   let filter_empty_strings lst = List.filter lst ~f:(fun str -> not (String.is_empty str)) in
   let convert_to_int lst = List.map lst ~f:Int.of_string in
-  let sum lst = List.fold lst ~init:0 ~f:(+) in
+  let sum_elf_calories lst = List.fold lst ~init:0 ~f:(+) in
   let sort_desc = (fun a b -> if a > b then -1
                               else if a < b then 1
                               else 0) in
@@ -31,7 +31,7 @@ let day_1 input select_fun =
   |> List.group ~break:(fun a _ -> String.(=) a "")
   |> List.map ~f:filter_empty_strings
   |> List.map ~f:convert_to_int
-  |> List.map ~f:sum
+  |> List.map ~f:sum_elf_calories
   |> List.sort ~compare:sort_desc
   |> select_fun
 
