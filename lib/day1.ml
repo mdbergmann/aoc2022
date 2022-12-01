@@ -23,7 +23,7 @@ let day_1 input = input
                   |> String.split ~on:'\n'
                   |> inspect
                   |> List.group ~break:(fun a _ -> String.(=) a "")
-                  |> List.map ~f:(fun n -> List.filter n ~f:String.is_empty)
+                  |> List.map ~f:(fun n -> List.filter n ~f:(fun str -> not (String.is_empty str)))
 
 let%test "day 1 - demo test" =
   let result = day_1 test_input
