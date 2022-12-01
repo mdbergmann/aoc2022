@@ -55,3 +55,9 @@ let%test "day 1-2 - demo test" =
   in
   printf "Result 1-2: %s\n" (ExtLib.dump result);
   result = 45000
+
+let%test "day 1-2 - full test" =
+  let result = day_1 prep_input (fun lst -> List.fold (List.take lst 3) ~init:0 ~f:(+))
+  in
+  printf "Result 1-2: %s\n" (ExtLib.dump result);
+  true
