@@ -54,4 +54,4 @@ let%test "day 1-2 - demo test" =
   let result = day_1 test_input (fun lst -> List.fold (List.take lst 3) ~init:0 ~f:(+))
   in
   printf "Result 1-2: %s\n" (ExtLib.dump result);
-  true
+  result = 45000
