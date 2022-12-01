@@ -17,8 +17,11 @@ let test_input = "1000
 10000"
 
 
+let inspect x = ExtLib.print x; x
+
 let day_1 input = input
                   |> String.split ~on:'\n'
+                  |> inspect
                   |> List.group ~break:(fun a _ -> String.(=) a "")
 
 let%test "day 1 - demo test" =
