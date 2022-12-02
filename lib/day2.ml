@@ -8,7 +8,7 @@ let day_2 = 0
 let%test "day 2 - demo test" =
   let result = day_2
   in
-  printf "Result 2: %s\n" (ExtLib.dump result);
+  printf "Result da_2: %s\n" (ExtLib.dump result);
   result = 0
 
 (* let prep_input = *)
