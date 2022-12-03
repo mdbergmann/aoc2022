@@ -1,7 +1,7 @@
 open! Base
 open Stdio
 
-type shape = Rock of int | Paper of int | Scissors of int
+type shape = Shape of string
 
 let inspect x = ExtLib.print x; x
 
@@ -10,13 +10,26 @@ B X
 C Z"
 
 exception IncompleteRound
+exception UnknownShape
 
 let day_2 input =
   let lines = String.split_lines input in
-  let _ = List.map lines ~f:(fun line -> match (String.split line ~on:' ') with
-                                         | [] -> raise IncompleteRound
-                                         | _ :: [] -> raise IncompleteRound
-                                         | fst :: snd :: _ -> (fst, snd)) in
+  let rounds = List.map lines ~f:(fun line -> match (String.split line ~on:' ') with
+                                              | [] -> raise IncompleteRound
+                                              | _ :: [] -> raise IncompleteRound
+                                              | fst :: snd :: _ -> ((match fst with
+                                                                     | "A" | "X" -> 1
+                                                                     | "B" | "Y" -> 2
+                                                                     | "C" | "Z" -> 3
+                                                                     | _ -> raise UnknownShape),
+                                                                    (match snd with
+                                                                     | "A" | "X" -> 1
+                                                                     | "B" | "Y" -> 2
+                                                                     | "C" | "Z" -> 3
+                                                                     | _ -> raise UnknownShape)
+                                                                    )) in
+  let _ = List.map rounds ~f:(fun round -> match round with
+                                           | (_, _) -> ()) in
   15
 
 let%test "day 2 - demo test" =
