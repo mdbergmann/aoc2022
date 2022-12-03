@@ -90,3 +90,9 @@ let%test "day 2-2 - demo test" =
   in
   printf "Result day_2-2 (demo): %s\n" (ExtLib.dump result);
   result = 12
+
+let%test "day 2-2 - real test" =
+  let result = day_2 prep_input to_shapes_2
+  in
+  printf "Result day_2-2 (real): %s\n" (ExtLib.dump result);
+  true
