@@ -1,7 +1,8 @@
 open! Base
 open Stdio
 
-type shape = Shape of string
+type base_shape = Shape of int
+type shape = Rock | Paper | Scissor
 
 let inspect x = ExtLib.print x; x
 
@@ -13,9 +14,9 @@ exception IncompleteRound
 exception UnknownShape
 
 let shape_of_str str = match str with
-  | "A" | "X" -> 1
-  | "B" | "Y" -> 2
-  | "C" | "Z" -> 3
+  | "A" | "X" -> Rock
+  | "B" | "Y" -> Paper
+  | "C" | "Z" -> Scissor
   | _ -> raise UnknownShape
 
 let day_2 input =
