@@ -9,10 +9,10 @@ let demo_input = "A Y
 B X
 C Z"
 
-let day_2 = 0
+let day_2 _ = 0
 
 let%test "day 2 - demo test" =
-  let result = day_2
+  let result = day_2 demo_input
   in
   printf "Result day_2: %s\n" (ExtLib.dump result);
   result = 0
