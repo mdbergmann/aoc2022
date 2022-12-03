@@ -60,5 +60,11 @@ let%test "day 2 - demo test" =
   printf "Result day_2 (demo): %s\n" (ExtLib.dump result);
   result = 15
 
-(* let prep_input = *)
-(*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day1_1.txt" *)
+let prep_input =
+  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day2_1.txt"
+
+let%test "day 2 - real test" =
+  let result = day_2 prep_input
+  in
+  printf "Result day_2 (real): %s\n" (ExtLib.dump result);
+  true
