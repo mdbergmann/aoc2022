@@ -68,3 +68,9 @@ let%test "day 2 - real test" =
   in
   printf "Result day_2 (real): %s\n" (ExtLib.dump result);
   result = 13565
+
+let%test "day 2-2 - demo test" =
+  let result = day_2 demo_input
+  in
+  printf "Result day_2-2 (demo): %s\n" (ExtLib.dump result);
+  result = 15
