@@ -26,6 +26,19 @@ let shape_of_str str = match str with
 
 let to_shapes_1 fst snd = ((shape_of_str fst), (shape_of_str snd))
 
+let to_shapes_2 fst snd =
+  match (snd, (shape_of_str fst)) with
+  | ("X", Shape(Rock, _)) -> (rock, scissor)
+  | ("X", Shape(Paper, _)) -> (paper, rock)
+  | ("X", Shape(Scissor, _)) -> (scissor, paper)
+  | ("Y", Shape(Rock, _)) -> (rock, rock)
+  | ("Y", Shape(Paper, _)) -> (paper, paper)
+  | ("Y", Shape(Scissor, _)) -> (scissor, scissor)
+  | ("Z", Shape(Rock, _)) -> (rock, paper)
+  | ("Z", Shape(Paper, _)) -> (paper, scissor)
+  | ("Z", Shape(Scissor, _)) -> (scissor, rock)
+  | _ -> raise UnknownShape
+
 let day_2 input (to_shapes_fun : string -> string -> round) =
   let lines = String.split_lines input in
   let rounds = List.map lines ~f:(fun line ->
@@ -73,7 +86,7 @@ let%test "day 2 - real test" =
   result = 13565
 
 let%test "day 2-2 - demo test" =
-  let result = day_2 demo_input to_shapes_1
+  let result = day_2 demo_input to_shapes_2
   in
   printf "Result day_2-2 (demo): %s\n" (ExtLib.dump result);
-  result = 15
+  result = 12
