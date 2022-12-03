@@ -32,15 +32,16 @@ let day_2 input =
                                           shape_of_str snd))) in
   let results = List.map rounds ~f:(fun round ->
                     match round with
-                    | ({t = Rock; _}, {t = Rock; _}) -> {t = Draw; play_shape = rock}
-                    | ({t = Paper; _}, {t = Paper; _}) -> {t = Draw; play_shape = paper}
-                    | ({t = Scissor; _}, {t = Scissor; _}) -> {t = Draw; play_shape = scissor}
-                    | ({t = Rock; _}, {t = Scissor; _}) -> {t = Loose; play_shape = scissor}
-                    | ({t = Paper; _}, {t = Rock; _}) -> {t = Loose; play_shape = rock}
-                    | ({t = Scissor; _}, {t = Paper; _}) -> {t = Loose; play_shape = paper}
-                    | ({t = Scissor; _}, {t = Rock; _}) -> {t = Win; play_shape = rock}
-                    | ({t = Rock; _}, {t = Paper; _}) -> {t = Win; play_shape = paper}
-                    | ({t = Paper; _}, {t = Scissor; _}) -> {t = Win; play_shape = scissor}) in
+                    | (he, me) -> match (he.t, me.t) with
+                                  | (Rock, Rock) -> {t = Draw; play_shape = rock}
+                                  | (Paper, Paper) -> {t = Draw; play_shape = paper}
+                                  | (Scissor, Scissor) -> {t = Draw; play_shape = scissor}
+                                  | (Rock, Scissor) -> {t = Loose; play_shape = scissor}
+                                  | (Paper, Rock) -> {t = Loose; play_shape = rock}
+                                  | (Scissor, Paper) -> {t = Loose; play_shape = paper}
+                                  | (Scissor, Rock) -> {t = Win; play_shape = rock}
+                                  | (Rock, Paper) -> {t = Win; play_shape = paper}
+                                  | (Paper, Scissor) -> {t = Win; play_shape = scissor}) in
   let scores = List.map results ~f:(fun result ->
                    match result with
                    | {t = Win; _} -> (6 + result.play_shape.value)
