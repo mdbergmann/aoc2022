@@ -5,6 +5,10 @@ type shape = Rock of int | Paper of int | Scissors of int
 
 let inspect x = ExtLib.print x; x
 
+let demo_input = "A Y
+B X
+C Z"
+
 let day_2 = 0
 
 let%test "day 2 - demo test" =
