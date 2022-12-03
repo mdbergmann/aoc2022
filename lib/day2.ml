@@ -10,7 +10,11 @@ B X
 C Z"
 
 let day_2 input =
-  let _ = String.split_lines input in
+  let lines = String.split_lines input in
+  let _ = List.map lines ~f:(fun line -> match (String.split line ~on:' ') with
+                                         | [] -> ("", "")
+                                         | _ :: [] -> ("", "")
+                                         | fst :: snd :: _ -> (fst, snd)) in
   15
 
 let%test "day 2 - demo test" =
