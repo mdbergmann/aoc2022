@@ -1,11 +1,15 @@
 open! Base
 open Stdio
 
-type shape = Shape of int
+type shape_type = Rock | Paper | Scissor
+type shape = {t : shape_type; value : int}
 
-let rock = Shape(1)
-let paper = Shape(2)
-let scissor = Shape(3)
+type win_type = Win | Loose | Draw
+type play_result = {t : win_type; play_shape : shape}
+
+let rock = {t = Rock; value = 1}
+let paper = {t = Paper; value = 2}
+let scissor = {t = Scissor; value = 3}
 
 let inspect x = ExtLib.print x; x
 
@@ -30,7 +34,10 @@ let day_2 input =
                                               | fst :: snd :: _ -> ((shape_of_str fst,
                                                                      shape_of_str snd))) in
   let _ = List.map rounds ~f:(fun round -> match round with
-                                           | (_, _) -> ()) in
+                                           | ({t = Rock; _}, {t = Rock; _}) -> {t = Draw; play_shape = rock}
+                                           | ({t = Paper; _}, {t = Paper; _}) -> {t = Draw; play_shape = paper}
+                                           | ({t = Scissor; _}, {t = Scissor; _}) -> {t = Draw; play_shape = scissor}
+                                           | _ -> {t = Win; play_shape = rock}) in
   15
 
 let%test "day 2 - demo test" =
