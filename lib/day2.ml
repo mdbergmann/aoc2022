@@ -1,6 +1,8 @@
 open! Base
 open Stdio
 
+type shape = int
+
 let inspect x = ExtLib.print x; x
 
 let day_2 = 0
