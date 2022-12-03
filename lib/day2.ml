@@ -22,14 +22,16 @@ let shape_of_str str = match str with
   | "C" | "Z" -> scissor
   | _ -> raise UnknownShape
 
+let to_rounds line =
+  match (String.split line ~on:' ') with
+  | [] -> raise IncompleteRound
+  | _ :: [] -> raise IncompleteRound
+  | fst :: snd :: _ -> ((shape_of_str fst,
+                         shape_of_str snd))
+
 let day_2 input =
   let lines = String.split_lines input in
-  let rounds = List.map lines ~f:(fun line ->
-                   match (String.split line ~on:' ') with
-                   | [] -> raise IncompleteRound
-                   | _ :: [] -> raise IncompleteRound
-                   | fst :: snd :: _ -> ((shape_of_str fst,
-                                          shape_of_str snd))) in
+  let rounds = List.map lines ~f:to_rounds in
   let results = List.map rounds ~f:(fun round ->
                     match round with
                     | (he, me) -> match (he.t, me.t) with
