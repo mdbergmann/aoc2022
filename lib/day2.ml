@@ -56,7 +56,7 @@ C Z"
 let%test "day 2 - demo test" =
   let result = day_2 demo_input
   in
-  printf "Result day_2: %s\n" (ExtLib.dump result);
+  printf "Result day_2 (demo): %s\n" (ExtLib.dump result);
   result = 15
 
 (* let prep_input = *)
