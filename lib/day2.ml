@@ -6,6 +6,8 @@ let inspect x = ExtLib.print x; x
 type shape_type = Rock | Paper | Scissor
 type shape = Shape of shape_type * int
 
+type round = shape * shape
+
 type win_type = Win | Loose | Draw
 type play_result = Result of win_type * shape
 
@@ -24,7 +26,7 @@ let shape_of_str str = match str with
 
 let to_shapes_1 fst snd = ((shape_of_str fst), (shape_of_str snd))
 
-let day_2 input (to_shapes_fun : string -> string -> (shape * shape)) =
+let day_2 input (to_shapes_fun : string -> string -> round) =
   let lines = String.split_lines input in
   let rounds = List.map lines ~f:(fun line ->
                    match (String.split line ~on:' ') with
