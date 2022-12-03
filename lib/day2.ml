@@ -37,7 +37,12 @@ let day_2 input =
                                            | ({t = Rock; _}, {t = Rock; _}) -> {t = Draw; play_shape = rock}
                                            | ({t = Paper; _}, {t = Paper; _}) -> {t = Draw; play_shape = paper}
                                            | ({t = Scissor; _}, {t = Scissor; _}) -> {t = Draw; play_shape = scissor}
-                                           | _ -> {t = Win; play_shape = rock}) in
+                                           | ({t = Rock; _}, {t = Scissor; _}) -> {t = Loose; play_shape = scissor}
+                                           | ({t = Paper; _}, {t = Rock; _}) -> {t = Loose; play_shape = rock}
+                                           | ({t = Scissor; _}, {t = Paper; _}) -> {t = Loose; play_shape = paper}
+                                           | ({t = Scissor; _}, {t = Rock; _}) -> {t = Win; play_shape = rock}
+                                           | ({t = Rock; _}, {t = Paper; _}) -> {t = Win; play_shape = paper}
+                                           | ({t = Paper; _}, {t = Scissor; _}) -> {t = Win; play_shape = scissor}) in
   15
 
 let%test "day 2 - demo test" =
