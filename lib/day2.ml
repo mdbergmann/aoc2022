@@ -4,14 +4,14 @@ open Stdio
 let inspect x = ExtLib.print x; x
 
 type shape_type = Rock | Paper | Scissor
-type shape = {t : shape_type; value : int}
+type shape = Shape of shape_type * int
 
 type win_type = Win | Loose | Draw
-type play_result = {t : win_type; play_shape : shape}
+type play_result = Result of win_type * shape
 
-let rock = {t = Rock; value = 1}
-let paper = {t = Paper; value = 2}
-let scissor = {t = Scissor; value = 3}
+let rock = Shape(Rock, 1)
+let paper = Shape(Paper, 2)
+let scissor = Shape(Scissor, 3)
 
 exception IncompleteRound
 exception UnknownShape
@@ -33,21 +33,21 @@ let day_2 input (to_shapes_fun : string -> string -> (shape * shape)) =
                    | fst :: snd :: _ -> (to_shapes_fun fst snd)) in
   let results = List.map rounds ~f:(fun round ->
                     match round with
-                    | (he, me) -> match (he.t, me.t) with
-                                  | (Rock, Rock) -> {t = Draw; play_shape = rock}
-                                  | (Paper, Paper) -> {t = Draw; play_shape = paper}
-                                  | (Scissor, Scissor) -> {t = Draw; play_shape = scissor}
-                                  | (Rock, Scissor) -> {t = Loose; play_shape = scissor}
-                                  | (Paper, Rock) -> {t = Loose; play_shape = rock}
-                                  | (Scissor, Paper) -> {t = Loose; play_shape = paper}
-                                  | (Scissor, Rock) -> {t = Win; play_shape = rock}
-                                  | (Rock, Paper) -> {t = Win; play_shape = paper}
-                                  | (Paper, Scissor) -> {t = Win; play_shape = scissor}) in
+                    | (Shape(st, _), Shape(stme, _)) -> match (st, stme) with
+                                  | (Rock, Rock) -> Result(Draw, rock)
+                                  | (Paper, Paper) -> Result(Draw, paper)
+                                  | (Scissor, Scissor) -> Result(Draw, scissor)
+                                  | (Rock, Scissor) -> Result(Loose, scissor)
+                                  | (Paper, Rock) -> Result(Loose, rock)
+                                  | (Scissor, Paper) -> Result(Loose, paper)
+                                  | (Scissor, Rock) -> Result(Win, rock)
+                                  | (Rock, Paper) -> Result(Win, paper)
+                                  | (Paper, Scissor) -> Result(Win, scissor)) in
   let scores = List.map results ~f:(fun result ->
                    match result with
-                   | {t = Win; _} -> (6 + result.play_shape.value)
-                   | {t = Loose; _} -> (0 + result.play_shape.value)
-                   | {t = Draw; _} -> (3 + result.play_shape.value)) in
+                   | Result(Win, Shape(_, v)) -> (6 + v)
+                   | Result(Loose, Shape(_, v)) -> (0 + v)
+                   | Result(Draw, Shape(_, v)) -> (3 + v)) in
   let score = List.fold scores ~init:0 ~f:(+) in
   score
 
