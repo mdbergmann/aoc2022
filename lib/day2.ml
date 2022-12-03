@@ -1,6 +1,8 @@
 open! Base
 open Stdio
 
+let inspect x = ExtLib.print x; x
+
 type shape_type = Rock | Paper | Scissor
 type shape = {t : shape_type; value : int}
 
@@ -10,12 +12,6 @@ type play_result = {t : win_type; play_shape : shape}
 let rock = {t = Rock; value = 1}
 let paper = {t = Paper; value = 2}
 let scissor = {t = Scissor; value = 3}
-
-let inspect x = ExtLib.print x; x
-
-let demo_input = "A Y
-B X
-C Z"
 
 exception IncompleteRound
 exception UnknownShape
@@ -52,6 +48,10 @@ let day_2 input =
                    | {t = Draw; _} -> (3 + result.play_shape.value)) in
   let score = List.fold scores ~init:0 ~f:(+) in
   score
+
+let demo_input = "A Y
+B X
+C Z"
 
 let%test "day 2 - demo test" =
   let result = day_2 demo_input
