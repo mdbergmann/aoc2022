@@ -22,7 +22,7 @@ let shape_of_str str = match str with
   | "C" | "Z" -> scissor
   | _ -> raise UnknownShape
 
-let to_rounds_1 = 0
+let to_shapes_1 = 0
 
 let day_2 input _ =
   let lines = String.split_lines input in
@@ -57,7 +57,7 @@ B X
 C Z"
 
 let%test "day 2 - demo test" =
-  let result = day_2 demo_input to_rounds_1
+  let result = day_2 demo_input to_shapes_1
   in
   printf "Result day_2 (demo): %s\n" (ExtLib.dump result);
   result = 15
@@ -66,13 +66,13 @@ let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day2_1.txt"
 
 let%test "day 2 - real test" =
-  let result = day_2 prep_input to_rounds_1
+  let result = day_2 prep_input to_shapes_1
   in
   printf "Result day_2 (real): %s\n" (ExtLib.dump result);
   result = 13565
 
 let%test "day 2-2 - demo test" =
-  let result = day_2 demo_input to_rounds_1
+  let result = day_2 demo_input to_shapes_1
   in
   printf "Result day_2-2 (demo): %s\n" (ExtLib.dump result);
   result = 15
