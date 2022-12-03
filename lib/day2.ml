@@ -43,18 +43,19 @@ let day_2 input =
                                                  | ({t = Scissor; _}, {t = Rock; _}) -> {t = Win; play_shape = rock}
                                                  | ({t = Rock; _}, {t = Paper; _}) -> {t = Win; play_shape = paper}
                                                  | ({t = Paper; _}, {t = Scissor; _}) -> {t = Win; play_shape = scissor}) in
-  let _ = List.map results ~f:(fun result ->
+  let scores = List.map results ~f:(fun result ->
                    match result with
                    | {t = Win; _} -> (6 + result.play_shape.value)
                    | {t = Loose; _} -> (0 + result.play_shape.value)
                    | {t = Draw; _} -> (3 + result.play_shape.value)) in
-  15
+  let score = List.fold scores ~init:0 ~f:(+) in
+  score
 
 let%test "day 2 - demo test" =
   let result = day_2 demo_input
   in
   printf "Result day_2: %s\n" (ExtLib.dump result);
-  result = 15
+  true
 
 (* let prep_input = *)
 (*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day1_1.txt" *)
