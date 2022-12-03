@@ -9,11 +9,13 @@ let demo_input = "A Y
 B X
 C Z"
 
+exception IncompleteRound
+
 let day_2 input =
   let lines = String.split_lines input in
   let _ = List.map lines ~f:(fun line -> match (String.split line ~on:' ') with
-                                         | [] -> ("", "")
-                                         | _ :: [] -> ("", "")
+                                         | [] -> raise IncompleteRound
+                                         | _ :: [] -> raise IncompleteRound
                                          | fst :: snd :: _ -> (fst, snd)) in
   15
 
