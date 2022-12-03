@@ -28,21 +28,23 @@ let shape_of_str str = match str with
 
 let day_2 input =
   let lines = String.split_lines input in
-  let rounds = List.map lines ~f:(fun line -> match (String.split line ~on:' ') with
-                                              | [] -> raise IncompleteRound
-                                              | _ :: [] -> raise IncompleteRound
-                                              | fst :: snd :: _ -> ((shape_of_str fst,
-                                                                     shape_of_str snd))) in
-  let results = List.map rounds ~f:(fun round -> match round with
-                                                 | ({t = Rock; _}, {t = Rock; _}) -> {t = Draw; play_shape = rock}
-                                                 | ({t = Paper; _}, {t = Paper; _}) -> {t = Draw; play_shape = paper}
-                                                 | ({t = Scissor; _}, {t = Scissor; _}) -> {t = Draw; play_shape = scissor}
-                                                 | ({t = Rock; _}, {t = Scissor; _}) -> {t = Loose; play_shape = scissor}
-                                                 | ({t = Paper; _}, {t = Rock; _}) -> {t = Loose; play_shape = rock}
-                                                 | ({t = Scissor; _}, {t = Paper; _}) -> {t = Loose; play_shape = paper}
-                                                 | ({t = Scissor; _}, {t = Rock; _}) -> {t = Win; play_shape = rock}
-                                                 | ({t = Rock; _}, {t = Paper; _}) -> {t = Win; play_shape = paper}
-                                                 | ({t = Paper; _}, {t = Scissor; _}) -> {t = Win; play_shape = scissor}) in
+  let rounds = List.map lines ~f:(fun line ->
+                   match (String.split line ~on:' ') with
+                   | [] -> raise IncompleteRound
+                   | _ :: [] -> raise IncompleteRound
+                   | fst :: snd :: _ -> ((shape_of_str fst,
+                                          shape_of_str snd))) in
+  let results = List.map rounds ~f:(fun round ->
+                    match round with
+                    | ({t = Rock; _}, {t = Rock; _}) -> {t = Draw; play_shape = rock}
+                    | ({t = Paper; _}, {t = Paper; _}) -> {t = Draw; play_shape = paper}
+                    | ({t = Scissor; _}, {t = Scissor; _}) -> {t = Draw; play_shape = scissor}
+                    | ({t = Rock; _}, {t = Scissor; _}) -> {t = Loose; play_shape = scissor}
+                    | ({t = Paper; _}, {t = Rock; _}) -> {t = Loose; play_shape = rock}
+                    | ({t = Scissor; _}, {t = Paper; _}) -> {t = Loose; play_shape = paper}
+                    | ({t = Scissor; _}, {t = Rock; _}) -> {t = Win; play_shape = rock}
+                    | ({t = Rock; _}, {t = Paper; _}) -> {t = Win; play_shape = paper}
+                    | ({t = Paper; _}, {t = Scissor; _}) -> {t = Win; play_shape = scissor}) in
   let scores = List.map results ~f:(fun result ->
                    match result with
                    | {t = Win; _} -> (6 + result.play_shape.value)
