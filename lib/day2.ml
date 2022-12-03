@@ -95,4 +95,4 @@ let%test "day 2-2 - real test" =
   let result = day_2 prep_input to_shapes_2
   in
   printf "Result day_2-2 (real): %s\n" (ExtLib.dump result);
-  true
+  result = 12424
