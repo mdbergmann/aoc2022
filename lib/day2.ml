@@ -55,7 +55,7 @@ let%test "day 2 - demo test" =
   let result = day_2 demo_input
   in
   printf "Result day_2: %s\n" (ExtLib.dump result);
-  true
+  result = 15
 
 (* let prep_input = *)
 (*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day1_1.txt" *)
