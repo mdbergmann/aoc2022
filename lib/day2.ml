@@ -9,7 +9,9 @@ let demo_input = "A Y
 B X
 C Z"
 
-let day_2 _ = 15
+let day_2 input =
+  let _ = String.split_lines input in
+  15
 
 let%test "day 2 - demo test" =
   let result = day_2 demo_input
