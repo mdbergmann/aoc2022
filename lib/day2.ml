@@ -1,7 +1,7 @@
 open! Base
 open Stdio
 
-type shape = int
+type shape = Rock | Paper | Scissors
 
 let inspect x = ExtLib.print x; x
 
