@@ -47,6 +47,12 @@ let%test "day 4 - demo test" =
   printf "Result day_4 (demo): %s\n" (ExtLib.dump result);
   result = 2
 
+let%test "day 4_2 - demo test" =
+  let result = day_4 demo_input
+  in
+  printf "Result day_4_2 (demo): %s\n" (ExtLib.dump result);
+  result = 2
+
 let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day4_1.txt"
 
