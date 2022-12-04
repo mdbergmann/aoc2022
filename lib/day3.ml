@@ -21,7 +21,9 @@ let day_3 input =
                            if char_int >= 65 then char_int - 38
                            else char_int - 96)) in
   ExtLib.print priorities;
-  let sack_sums = List.map priorities ~f:(fun rucksack_prios ->
+  let filtered_dups = List.map priorities ~f:(fun prios ->
+                          List.dedup_and_sort prios ~compare:(fun _ _ -> 0)) in
+  let sack_sums = List.map filtered_dups ~f:(fun rucksack_prios ->
                       List.fold rucksack_prios ~init:0 ~f:(+)) in
   let sum = List.fold sack_sums ~init:0 ~f:(+) in
   ExtLib.print sum;
