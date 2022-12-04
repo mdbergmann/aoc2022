@@ -4,7 +4,9 @@ open Stdio
 let inspect x = ExtLib.print x; x
 
 let day_3 input =
-  let _ = String.split_lines input in
+  let rucksacks = String.split_lines input in
+  let _ = List.map rucksacks ~f:(fun rucksack ->
+                             String.sub rucksack ~pos:0 ~len:(String.length rucksack)) in
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
