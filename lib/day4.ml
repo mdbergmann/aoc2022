@@ -12,17 +12,17 @@ let make_range s e  =
 exception Error
 
 let containing input =
-  List.filter input ~f:(fun (side1, side2) ->
+  List.filter input ~f:(fun (left, right) ->
       Caml.(||)
-        (List.for_all side1 ~f:(fun elem1 ->
-             List.exists side2 ~f:(fun elem2 -> elem1 = elem2)))
-        (List.for_all side2 ~f:(fun elem1 ->
-             List.exists side1 ~f:(fun elem2 -> elem1 = elem2))))
+        (List.for_all left ~f:(fun elem1 ->
+             List.exists right ~f:(fun elem2 -> elem1 = elem2)))
+        (List.for_all right ~f:(fun elem1 ->
+             List.exists left ~f:(fun elem2 -> elem1 = elem2))))
 
 let overlapping input =
-  List.filter input ~f:(fun (side1, side2) ->
-      List.exists side1 ~f:(fun elem1 ->
-          List.exists side2 ~f:(fun elem2 -> elem1 = elem2)))
+  List.filter input ~f:(fun (left, right) ->
+      List.exists left ~f:(fun elem1 ->
+          List.exists right ~f:(fun elem2 -> elem1 = elem2)))
 
 let day_4 input filter_fun =
   let str_pairs = List.map (String.split_lines input) ~f:(fun line ->
@@ -31,13 +31,15 @@ let day_4 input filter_fun =
                       let num_pair =
                         (List.map str_pair ~f:(fun elem ->
                              match String.split elem ~on:'-' with
-                             | side1 :: side2 :: _ ->
-                                make_range (Int.of_string side1) ((Int.of_string side2) + 1)
+                             | left :: right :: _ ->
+                                make_range (Int.of_string left) ((Int.of_string right) + 1)
                              | _ -> raise Error
                         )) in
-                      match num_pair with
-                      | side1 :: side2 :: _ -> (side1, side2)
-                      | _ -> raise Error) in
+                      let to_tuple = 
+                        match num_pair with
+                        | left :: right :: _ -> (left, right)
+                        | _ -> raise Error in
+                      to_tuple) in
   let filtered = filter_fun num_pairs in
   let sum = List.length filtered in
   sum
