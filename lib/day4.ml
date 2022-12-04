@@ -18,11 +18,14 @@ let day_4 input =
   let num_pairs = List.map str_pairs ~f:(fun str_pair ->
                       List.map str_pair ~f:(fun elem ->
                           match String.split elem ~on:'-' with
-                          | side1 :: side2 :: _ -> make_range (Int.of_string side1) ((Int.of_string side2) + 1)
+                          | side1 :: side2 :: _ ->
+                             make_range (Int.of_string side1) ((Int.of_string side2) + 1)
                           | _ -> raise Error
                         )
                     ) in
   ExtLib.print num_pairs;
+  let flattened = Stdlib.List.flatten num_pairs in
+  ExtLib.print flattened;  
   2
 
 let demo_input = "2-4,6-8
