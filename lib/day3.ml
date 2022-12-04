@@ -44,7 +44,7 @@ let%test "day 3 - demo test" =
   result = 157
 
 let prep_input =
-  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day2_1.txt"
+  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day3_1.txt"
 
 let%test "day 3 - real test" =
   let result = day_3 prep_input
