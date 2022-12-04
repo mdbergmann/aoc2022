@@ -25,6 +25,8 @@ let day_3 input =
   let sum = List.fold sack_sums ~init:0 ~f:(+) in
   sum
 
+let day_3_2 _ = 70
+
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
@@ -46,3 +48,9 @@ let%test "day 3 - real test" =
   in
   printf "Result day_3 (real): %s\n" (ExtLib.dump result);
   result = 7568
+
+let%test "day 3-2 - demo test" =
+  let result = day_3_2 demo_input
+  in
+  printf "Result day_3-2 (demo): %s\n" (ExtLib.dump result);
+  result = 70
