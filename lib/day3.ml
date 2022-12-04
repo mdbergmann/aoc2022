@@ -5,6 +5,13 @@ let inspect x = ExtLib.print x; x
 
 let day_3 = 0
 
+let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw"
+
 let%test "day 3 - demo test" =
   let result = day_3
   in
