@@ -22,7 +22,8 @@ let day_3 input =
                            else char_int - 96)) in
   let sack_sums = List.map priorities ~f:(fun rucksack_prios ->
                       List.fold rucksack_prios ~init:0 ~f:(+)) in
-  let _ = List.fold sack_sums ~init:0 ~f:(+) in
+  let sum = List.fold sack_sums ~init:0 ~f:(+) in
+  ExtLib.print sum;
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
