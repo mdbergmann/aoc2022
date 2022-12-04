@@ -34,7 +34,8 @@ let day_4 input =
                                  List.exists side1 ~f:(fun elem2 -> elem1 = elem2)))
                        | _ -> raise Error) in
   ExtLib.print containing;
-  2
+  let sum = List.length containing in
+  sum
 
 let demo_input = "2-4,6-8
 2-3,4-5
