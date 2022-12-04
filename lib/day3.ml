@@ -3,7 +3,9 @@ open Stdio
 
 let inspect x = ExtLib.print x; x
 
-let day_3 = 157
+let day_3 input =
+  let _ = String.split_lines input in
+  157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -13,7 +15,7 @@ ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw"
 
 let%test "day 3 - demo test" =
-  let result = day_3
+  let result = day_3 demo_input
   in
   printf "Result day_3 (demo): %s\n" (ExtLib.dump result);
   result = 157
