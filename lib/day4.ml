@@ -77,4 +77,4 @@ let%test "day 4_2 - real test" =
   let result = day_4 prep_input overlapping
   in
   printf "Result day_4_2 (real): %s\n" (ExtLib.dump result);
-  true
+  result = 854
