@@ -13,9 +13,11 @@ let day_3 input =
   let shared_items = List.map all_compartments ~f:(fun (comp1, comp2) ->
                          String.filter comp1 ~f:(fun item1 ->
                              String.exists comp2 ~f:(fun item2 -> Char.(=) item1 item2))) in
-  let _ = List.map shared_items ~f:(fun item ->
-                       item
-                     ) in
+  let _ = List.map shared_items ~f:(fun items ->
+                       List.map (String.to_list items) ~f:(fun item ->
+                           let char_int = Char.to_int item in
+                           if char_int >= 65 then char_int - 38
+                           else char_int - 96)) in
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
