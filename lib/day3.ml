@@ -18,8 +18,8 @@ let day_3 input =
   let priorities = List.map shared_items ~f:(fun items ->
                        List.map (String.to_list items) ~f:(fun item ->
                            let char_int = Char.to_int item in
-                           if char_int >= 65 then char_int - 38
-                           else char_int - 96)) in
+                           if char_int >= 97 then char_int - 96
+                           else char_int - 38)) in
   ExtLib.print priorities;
   let filtered_dups = List.map priorities ~f:(fun prios ->
                           List.dedup_and_sort prios ~compare:(fun _ _ -> 0)) in
