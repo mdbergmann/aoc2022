@@ -23,6 +23,7 @@ let day_3 input =
   ExtLib.print priorities;
   let filtered_dups = List.map priorities ~f:(fun prios ->
                           List.dedup_and_sort prios ~compare:(fun _ _ -> 0)) in
+  ExtLib.print filtered_dups;
   let sack_sums = List.map filtered_dups ~f:(fun rucksack_prios ->
                       List.fold rucksack_prios ~init:0 ~f:(+)) in
   let sum = List.fold sack_sums ~init:0 ~f:(+) in
