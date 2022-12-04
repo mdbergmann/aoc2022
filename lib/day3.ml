@@ -9,7 +9,7 @@ let day_3 input =
                              let rucksack_len = String.length rucksack in
                              let half_len = rucksack_len / 2 in
                              (String.sub rucksack ~pos:0 ~len:half_len,
-                              String.sub rucksack ~pos:(half_len - 1) ~len:half_len)) in
+                              String.sub rucksack ~pos:half_len ~len:half_len)) in
   ExtLib.print all_compartments;
   let shared_items = List.map all_compartments ~f:(fun (comp1, comp2) ->
                          String.filter comp1 ~f:(fun item1 ->
