@@ -33,7 +33,6 @@ let day_3_1 input =
 let day_3_2 input =
   let rucksacks = String.split_lines input in
   let rucksack_groups = List.groupi rucksacks ~break:(fun i _ _ -> (Int.rem i 3) = 0) in
-  ExtLib.print rucksack_groups;
   let shared_items = List.map rucksack_groups ~f:(fun group ->
                          match group with
                          | sack1 :: sack2 :: sack3 :: _ ->
@@ -77,4 +76,4 @@ let%test "day 3-2 - real test" =
   let result = day_3_2 prep_input
   in
   printf "Result day_3-2 (real): %s\n" (ExtLib.dump result);
-  true
+  result = 2780
