@@ -22,6 +22,13 @@ let containing input =
                 List.exists side1 ~f:(fun elem2 -> elem1 = elem2)))
       | _ -> raise Error)
 
+let overlapping input =
+  List.filter input ~f:(fun pair ->
+      match pair with
+      | side1 :: side2 :: _ ->
+         List.exists side1 ~f:(fun elem1 ->
+             List.exists side2 ~f:(fun elem2 -> elem1 = elem2))
+      | _ -> raise Error)
 
 let day_4 input filter_fun =
   let str_pairs = List.map (String.split_lines input) ~f:(fun line ->
@@ -35,6 +42,7 @@ let day_4 input filter_fun =
                         )
                     ) in
   let filtered = filter_fun num_pairs in
+  ExtLib.print filtered;
   let sum = List.length filtered in
   sum
 
@@ -52,10 +60,10 @@ let%test "day 4 - demo test" =
   result = 2
 
 let%test "day 4_2 - demo test" =
-  let result = day_4 demo_input containing
+  let result = day_4 demo_input overlapping
   in
   printf "Result day_4_2 (demo): %s\n" (ExtLib.dump result);
-  result = 2
+  result = 4
 
 let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day4_1.txt"
