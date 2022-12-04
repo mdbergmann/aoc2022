@@ -24,8 +24,16 @@ let day_4 input =
                         )
                     ) in
   ExtLib.print num_pairs;
-  let flattened = Stdlib.List.flatten num_pairs in
-  ExtLib.print flattened;  
+  let containing = List.filter num_pairs ~f:(fun pair ->
+                       match pair with
+                       | side1 :: side2 :: _ ->
+                          Caml.(||)
+                            (List.for_all side1 ~f:(fun elem1 ->
+                                 List.exists side2 ~f:(fun elem2 -> elem1 = elem2)))
+                            (List.for_all side2 ~f:(fun elem1 ->
+                                 List.exists side1 ~f:(fun elem2 -> elem1 = elem2)))
+                       | _ -> raise Error) in
+  ExtLib.print containing;
   2
 
 let demo_input = "2-4,6-8
