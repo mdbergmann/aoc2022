@@ -14,7 +14,6 @@ exception Error
 let day_4 input =
   let str_pairs = List.map (String.split_lines input) ~f:(fun line ->
                       String.split line ~on:',') in
-  ExtLib.print str_pairs;
   let num_pairs = List.map str_pairs ~f:(fun str_pair ->
                       List.map str_pair ~f:(fun elem ->
                           match String.split elem ~on:'-' with
@@ -23,7 +22,6 @@ let day_4 input =
                           | _ -> raise Error
                         )
                     ) in
-  ExtLib.print num_pairs;
   let containing = List.filter num_pairs ~f:(fun pair ->
                        match pair with
                        | side1 :: side2 :: _ ->
