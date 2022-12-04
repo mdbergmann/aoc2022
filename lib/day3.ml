@@ -25,7 +25,11 @@ let day_3 input =
   let sum = List.fold sack_sums ~init:0 ~f:(+) in
   sum
 
-let day_3_2 _ = 70
+let day_3_2 input =
+  let rucksacks = String.split_lines input in
+  let rucksack_groups = List.groupi rucksacks ~break:(fun i _ _ -> (Int.rem i 3) = 0) in
+  ExtLib.print rucksack_groups;
+  70
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
