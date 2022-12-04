@@ -28,7 +28,7 @@ let day_3 input =
                       List.fold rucksack_prios ~init:0 ~f:(+)) in
   let sum = List.fold sack_sums ~init:0 ~f:(+) in
   ExtLib.print sum;
-  157
+  sum
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
