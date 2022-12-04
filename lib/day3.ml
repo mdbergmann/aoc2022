@@ -3,6 +3,8 @@ open Stdio
 
 let inspect x = ExtLib.print x; x
 
+exception Error
+
 let day_3 input =
   let rucksacks = String.split_lines input in
   let all_compartments = List.map rucksacks ~f:(fun rucksack ->
@@ -29,6 +31,15 @@ let day_3_2 input =
   let rucksacks = String.split_lines input in
   let rucksack_groups = List.groupi rucksacks ~break:(fun i _ _ -> (Int.rem i 3) = 0) in
   ExtLib.print rucksack_groups;
+  let shared_items = List.map rucksack_groups ~f:(fun group ->
+                         match group with
+                         | sack1 :: sack2 :: sack3 :: _ ->
+                            String.filter sack1 ~f:(fun item1 ->
+                                (String.exists sack2 ~f:(fun item2 -> Char.(=) item1 item2)) &&
+                                  (String.exists sack3 ~f:(fun item3 -> Char.(=) item1 item3)))
+                         | _ -> raise Error
+                       ) in
+  ExtLib.print shared_items;
   70
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
