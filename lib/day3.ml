@@ -13,11 +13,15 @@ let day_3 input =
   let shared_items = List.map all_compartments ~f:(fun (comp1, comp2) ->
                          String.filter comp1 ~f:(fun item1 ->
                              String.exists comp2 ~f:(fun item2 -> Char.(=) item1 item2))) in
-  let _ = List.map shared_items ~f:(fun items ->
+  ExtLib.print shared_items;
+  let priorities = List.map shared_items ~f:(fun items ->
                        List.map (String.to_list items) ~f:(fun item ->
                            let char_int = Char.to_int item in
                            if char_int >= 65 then char_int - 38
                            else char_int - 96)) in
+  let sack_sums = List.map priorities ~f:(fun rucksack_prios ->
+                      List.fold rucksack_prios ~init:0 ~f:(+)) in
+  let _ = List.fold sack_sums ~init:0 ~f:(+) in
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
