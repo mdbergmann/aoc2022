@@ -11,8 +11,8 @@ let day_3 input =
                              (String.sub rucksack ~pos:0 ~len:half_len,
                               String.sub rucksack ~pos:(half_len / 2) ~len:half_len)) in
   let _ = List.map all_compartments ~f:(fun (comp1, comp2) ->
-              (comp1, comp2)
-            ) in
+              String.filter comp1 ~f:(fun item1 ->
+                  String.exists comp2 ~f:(fun item2 -> Char.(=) item1 item2))) in
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
