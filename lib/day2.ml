@@ -48,16 +48,17 @@ let day_2 input (to_shapes_fun : string -> string -> round) =
                    | fst :: snd :: _ -> (to_shapes_fun fst snd)) in
   let results = List.map rounds ~f:(fun round ->
                     match round with
-                    | (Shape(st, _), Shape(stme, _)) -> match (st, stme) with
-                                  | (Rock, Rock) -> Result(Draw, rock)
-                                  | (Paper, Paper) -> Result(Draw, paper)
-                                  | (Scissor, Scissor) -> Result(Draw, scissor)
-                                  | (Rock, Scissor) -> Result(Loose, scissor)
-                                  | (Paper, Rock) -> Result(Loose, rock)
-                                  | (Scissor, Paper) -> Result(Loose, paper)
-                                  | (Scissor, Rock) -> Result(Win, rock)
-                                  | (Rock, Paper) -> Result(Win, paper)
-                                  | (Paper, Scissor) -> Result(Win, scissor)) in
+                    | (Shape(st, _), Shape(stme, _)) ->
+                       match (st, stme) with
+                       | (Rock, Rock) -> Result(Draw, rock)
+                       | (Paper, Paper) -> Result(Draw, paper)
+                       | (Scissor, Scissor) -> Result(Draw, scissor)
+                       | (Rock, Scissor) -> Result(Loose, scissor)
+                       | (Paper, Rock) -> Result(Loose, rock)
+                       | (Scissor, Paper) -> Result(Loose, paper)
+                       | (Scissor, Rock) -> Result(Win, rock)
+                       | (Rock, Paper) -> Result(Win, paper)
+                       | (Paper, Scissor) -> Result(Win, scissor)) in
   let scores = List.map results ~f:(fun result ->
                    match result with
                    | Result(Win, Shape(_, v)) -> (6 + v)
