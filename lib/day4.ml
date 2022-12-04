@@ -42,7 +42,6 @@ let day_4 input filter_fun =
                         )
                     ) in
   let filtered = filter_fun num_pairs in
-  ExtLib.print filtered;
   let sum = List.length filtered in
   sum
 
@@ -68,8 +67,14 @@ let%test "day 4_2 - demo test" =
 let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day4_1.txt"
 
-(* let%test "day 4 - real test" = *)
-(*   let result = day_4 prep_input containing *)
-(*   in *)
-(*   printf "Result day_4 (real): %s\n" (ExtLib.dump result); *)
-(*   true *)
+let%test "day 4 - real test" =
+  let result = day_4 prep_input containing
+  in
+  printf "Result day_4 (real): %s\n" (ExtLib.dump result);
+  result = 532
+
+let%test "day 4_2 - real test" =
+  let result = day_4 prep_input overlapping
+  in
+  printf "Result day_4_2 (real): %s\n" (ExtLib.dump result);
+  true
