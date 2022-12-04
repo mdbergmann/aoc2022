@@ -5,8 +5,14 @@ let inspect x = ExtLib.print x; x
 
 let day_3 input =
   let rucksacks = String.split_lines input in
-  let _ = List.map rucksacks ~f:(fun rucksack ->
-                             String.sub rucksack ~pos:0 ~len:(String.length rucksack)) in
+  let all_compartments = List.map rucksacks ~f:(fun rucksack ->
+                             let rucksack_len = String.length rucksack in
+                             let half_len = rucksack_len / 2 in
+                             (String.sub rucksack ~pos:0 ~len:half_len,
+                              String.sub rucksack ~pos:(half_len / 2) ~len:half_len)) in
+  let _ = List.map all_compartments ~f:(fun (comp1, comp2) ->
+              (comp1, comp2)
+            ) in
   157
 
 let demo_input = "vJrwpWtwJgWrhcsFMMfFFhFp
