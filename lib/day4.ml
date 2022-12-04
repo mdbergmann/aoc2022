@@ -3,7 +3,11 @@ open Stdio
 
 let inspect x = ExtLib.print x; x
 
-let day_4 _ = 2
+let day_4 input =
+  let str_pairs = List.map (String.split_lines input) ~f:(fun line ->
+                      String.split line ~on:',') in
+  ExtLib.print str_pairs;
+  2
 
 let demo_input = "2-4,6-8
 2-3,4-5
