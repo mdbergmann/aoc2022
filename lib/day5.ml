@@ -21,8 +21,11 @@ let day_5 input =
   ExtLib.print stack_lines;
   ExtLib.print move_lines;
   let four_cols = ((String.length crates_numbers_line) - 4) / 4 in
-  let col_indices = 2 :: List.map ~f:(fun c -> 2 + (c * 4))
-                           (make_range 1 (four_cols+1)) in
+  let col_indices = 2 ::
+                      List.append
+                        (List.map ~f:(fun c -> 2 + (c * 4))
+                           (make_range 1 (four_cols+1)))
+                        [String.length crates_numbers_line-2] in
   ExtLib.print col_indices;
   "CMZ"
 
