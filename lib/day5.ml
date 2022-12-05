@@ -99,4 +99,4 @@ let%test "day 5-2 - real test" =
   let result = day_5 prep_input cranemover_9001
   in
   printf "Result day_5-2 (real): %s\n" (ExtLib.dump result);
-  true
+  String.equal result "JSDHQMZGF"
