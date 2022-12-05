@@ -10,7 +10,7 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_5 input crane_mover_fun =
+let prepare_crate_stacks_and_move_lines input =
   let lines = String.split_lines input in
   let (crates_numbers_line_index, crates_numbers_line) = match
       List.findi lines ~f:(fun _ line -> not (String.contains line '[')) with
@@ -30,18 +30,24 @@ let day_5 input crane_mover_fun =
           if not (String.equal crate_id " ") then Stack.push crate_stack crate_id
         )
     );
-  
   let crate_stacks = List.map col_stacks ~f:(fun (_,stack) -> stack) in
-  let move_ops = List.map move_lines ~f:(fun line ->
-                     let matched = Str.string_match
-                                     (Str.regexp "^move \\([0-9]+\\) from \\([0-9]+\\) to \\([0-9]+\\)")
-                                     line
-                                     0 in
-                     if matched then ((Int.of_string (Str.matched_group 1 line)),
-                                      (Int.of_string (Str.matched_group 2 line)),
-                                      (Int.of_string (Str.matched_group 3 line)))
-                     else assert false
-                   ) in
+  (crate_stacks, move_lines)
+
+let prepare_move_ops move_lines = 
+  List.map move_lines ~f:(fun line ->
+      let matched = Str.string_match
+                      (Str.regexp "^move \\([0-9]+\\) from \\([0-9]+\\) to \\([0-9]+\\)")
+                      line
+                      0 in
+      if matched then ((Int.of_string (Str.matched_group 1 line)),
+                       (Int.of_string (Str.matched_group 2 line)),
+                       (Int.of_string (Str.matched_group 3 line)))
+      else assert false
+    )
+
+let day_5 input crane_mover_fun =
+  let (crate_stacks, move_lines) = prepare_crate_stacks_and_move_lines input in
+  let move_ops = prepare_move_ops move_lines in
   List.iter move_ops ~f:(crane_mover_fun crate_stacks);
   let top_crates = List.map crate_stacks ~f:Stack.top_exn in
   String.concat top_crates
