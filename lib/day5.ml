@@ -25,7 +25,7 @@ let day_5 input =
                       List.append
                         (List.map ~f:(fun c -> 2 + (c * 4))
                            (make_range 1 (four_cols+1)))
-                        [String.length crates_numbers_line-2] in
+                        [String.length crates_numbers_line-1] in
   ExtLib.print col_indices;
   "CMZ"
 
