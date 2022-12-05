@@ -18,10 +18,10 @@ let prepare_crate_stacks_and_move_lines input =
     | None -> assert false in
   let stack_lines = List.sub lines ~pos:0 ~len:crates_numbers_line_index in
   let move_lines = List.drop lines (crates_numbers_line_index+2) in
-  let four_cols = ((String.length crates_numbers_line) - 4) / 4 in
+  let col_nums = ((String.length crates_numbers_line) - 4) / 4 in
   let col_indices = 1 :: List.append
                            (List.map ~f:(fun c -> 1 + (c * 4))
-                              (make_range 1 (four_cols+1)))
+                              (make_range 1 (col_nums+1)))
                            [String.length crates_numbers_line-2] in
   let col_stacks = List.map col_indices ~f:(fun i -> (i, Stack.create())) in
   List.iter (List.rev stack_lines) ~f:(fun stack_line ->
