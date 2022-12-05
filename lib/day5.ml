@@ -31,7 +31,7 @@ let day_5 input =
   List.iter stack_lines ~f:(fun stack_line ->
       List.iter col_stacks ~f:(fun (col_index, crate_stack) ->
           let crate_id = String.get stack_line col_index in
-          if true then Stack.push crate_stack crate_id
+          if not ((Char.to_int crate_id) = 32) then Stack.push crate_stack crate_id
         )
     );
   ExtLib.print col_stacks;
