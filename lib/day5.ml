@@ -28,7 +28,7 @@ let day_5 input =
                            [String.length crates_numbers_line-2] in
   let col_stacks = List.map col_indices ~f:(fun i -> (i, Stack.create())) in
   ExtLib.print col_stacks;
-  List.iter stack_lines ~f:(fun stack_line ->
+  List.iter (List.rev stack_lines) ~f:(fun stack_line ->
       List.iter col_stacks ~f:(fun (col_index, crate_stack) ->
           let crate_id = Char.to_string (String.get stack_line col_index) in
           if not (String.equal crate_id " ") then Stack.push crate_stack crate_id
