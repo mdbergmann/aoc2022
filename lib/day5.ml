@@ -26,7 +26,8 @@ let day_5 input =
                         (List.map ~f:(fun c -> 1 + (c * 4))
                            (make_range 1 (four_cols+1)))
                         [String.length crates_numbers_line-2] in
-  ExtLib.print col_indices;
+  let col_stacks = List.map col_indices ~f:(fun i -> (i, Stack.create)) in
+  ExtLib.print col_stacks;
   "CMZ"
 
 let demo_input = "    [D]    
