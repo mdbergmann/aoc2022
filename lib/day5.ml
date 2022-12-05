@@ -35,7 +35,9 @@ let day_5 input =
         )
     );
   ExtLib.print col_stacks;
-  ExtLib.print (List.map col_stacks ~f:(fun (_, stack) -> Stack.top_exn stack));
+  
+  let crate_stacks = List.map col_stacks ~f:(fun (_,stack) -> stack) in
+  ExtLib.print (List.map crate_stacks ~f:Stack.top_exn);
   let move_ops = List.map move_lines ~f:(fun line ->
                      let matched = Str.string_match
                                      (Str.regexp "^move \\([0-9]+\\) from \\([0-9]+\\) to \\([0-9]+\\)")
@@ -47,6 +49,16 @@ let day_5 input =
                      else assert false
                    ) in
   ExtLib.print move_ops;
+  List.iter move_ops ~f:(fun (crate_count,from_stack_num,to_stack_num) ->
+      for _ = 0 to (crate_count-1) do
+        ExtLib.print (crate_count,from_stack_num,to_stack_num);
+        let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
+        let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
+        let item = Stack.pop_exn from_stack in
+        Stack.push to_stack item;
+      done;
+    );
+  ExtLib.print crate_stacks;
   "CMZ"
 
 let demo_input = "    [D]    
