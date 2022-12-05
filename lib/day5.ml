@@ -9,8 +9,14 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_5 = 0
-
+let day_5 input =
+  let lines = String.split_lines input in
+  let creates_stack_numbers_line = match
+      List.findi lines ~f:(fun _ line -> not (String.contains line '[')) with
+    | Some (l_i, line) -> (l_i, line)
+    | None -> assert false in
+  ExtLib.print creates_stack_numbers_line;
+  "CMZ"
 
 let demo_input = "    [D]    
 [N] [C]    
@@ -23,10 +29,10 @@ move 2 from 2 to 1
 move 1 from 1 to 2"
 
 let%test "day 5 - demo test" =
-  let result = day_5
+  let result = day_5 demo_input
   in
   printf "Result day_5 (demo): %s\n" (ExtLib.dump result);
-  result = 0
+  String.equal result "CMZ"
 
 (* let prep_input = *)
 (*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day5_1.txt" *)
