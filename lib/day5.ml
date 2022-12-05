@@ -41,11 +41,10 @@ let day_5 input =
                                      (Str.regexp "^move \\([0-9]+\\) from \\([0-9]+\\) to \\([0-9]+\\)")
                                      line
                                      0 in
-                     ExtLib.print matched;
-                     ExtLib.print (Str.matched_group 1 line);
-                     ExtLib.print (Str.matched_group 2 line);
-                     ExtLib.print (Str.matched_group 3 line);
-                     line
+                     if matched then ((Int.of_string (Str.matched_group 1 line)),
+                                      (Int.of_string (Str.matched_group 2 line)),
+                                      (Int.of_string (Str.matched_group 3 line)))
+                     else assert false
                    ) in
   ExtLib.print move_ops;
   "CMZ"
