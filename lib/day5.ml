@@ -59,6 +59,7 @@ let day_5 input =
       done;
     );
   ExtLib.print crate_stacks;
+  ExtLib.print (List.map crate_stacks ~f:Stack.top_exn);
   "CMZ"
 
 let demo_input = "    [D]    
