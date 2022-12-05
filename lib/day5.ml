@@ -1,5 +1,6 @@
 open! Base
 open Stdio
+open! Str
 
 let inspect x = ExtLib.print x; x
 
@@ -35,6 +36,15 @@ let day_5 input =
     );
   ExtLib.print col_stacks;
   ExtLib.print (List.map col_stacks ~f:(fun (_, stack) -> Stack.top_exn stack));
+  let move_ops = List.map move_lines ~f:(fun line ->
+                     let matched = Str.string_match
+                                     (Str.regexp "move \\(d+\\) from \\(d+\\) to \\(d+\\)")
+                                     line
+                                     0 in
+                     ExtLib.print matched;
+                     line
+                   ) in
+  ExtLib.print move_ops;
   "CMZ"
 
 let demo_input = "    [D]    

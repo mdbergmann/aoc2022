@@ -1,5 +1,5 @@
 (library
  (name aoc2022)
- (libraries base stdio extlib)
+ (libraries base stdio extlib str)
  (preprocess (pps ppx_inline_test ppx_assert))
  (inline_tests))
