@@ -78,5 +78,11 @@ let%test "day 5 - demo test" =
   printf "Result day_5 (demo): %s\n" (ExtLib.dump result);
   String.equal result "CMZ"
 
-(* let prep_input = *)
-(*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day5_1.txt" *)
+let prep_input =
+  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day5_1.txt"
+
+let%test "day 5 - real test" =
+  let result = day_5 prep_input
+  in
+  printf "Result day_5 (real): %s\n" (ExtLib.dump result);
+  true
