@@ -24,12 +24,14 @@ let prepare_crate_stacks_and_move_lines input =
                               (make_range 1 (col_nums+1)))
                            [String.length crates_numbers_line-2] in
   let col_stacks = List.map col_indices ~f:(fun i -> (i, Stack.create())) in
-  List.iter (List.rev stack_lines) ~f:(fun stack_line ->
-      List.iter col_stacks ~f:(fun (col_index, crate_stack) ->
-          let crate_id = Char.to_string (String.get stack_line col_index) in
-          if not (String.equal crate_id " ") then Stack.push crate_stack crate_id
-        )
-    );
+  let prepare_crates = 
+    List.iter (List.rev stack_lines) ~f:(fun stack_line ->
+        List.iter col_stacks ~f:(fun (col_index, crate_stack) ->
+            let crate_id = Char.to_string (String.get stack_line col_index) in
+            if not (String.equal crate_id " ") then Stack.push crate_stack crate_id
+          )
+      ) in
+  prepare_crates;
   let crate_stacks = List.map col_stacks ~f:(fun (_,stack) -> stack) in
   (crate_stacks, move_lines)
 
