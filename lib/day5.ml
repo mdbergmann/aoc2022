@@ -10,7 +10,7 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_5 input =
+let day_5 input crane_mover_fun =
   let lines = String.split_lines input in
   let (crates_numbers_line_index, crates_numbers_line) = match
       List.findi lines ~f:(fun _ line -> not (String.contains line '[')) with
@@ -42,14 +42,7 @@ let day_5 input =
                                       (Int.of_string (Str.matched_group 3 line)))
                      else assert false
                    ) in
-  List.iter move_ops ~f:(fun (crate_count,from_stack_num,to_stack_num) ->
-      for _ = 0 to (crate_count-1) do
-        let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
-        let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
-        let item = Stack.pop_exn from_stack in
-        Stack.push to_stack item;
-      done;
-    );
+  List.iter move_ops ~f:(crane_mover_fun crate_stacks);
   let top_crates = List.map crate_stacks ~f:Stack.top_exn in
   String.concat top_crates
 
@@ -63,14 +56,23 @@ move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2"
 
+let cranemover_9000 crate_stacks =
+  (fun (crate_count,from_stack_num,to_stack_num) ->
+    for _ = 0 to (crate_count-1) do
+      let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
+      let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
+      let item = Stack.pop_exn from_stack in
+      Stack.push to_stack item;
+    done;)
+
 let%test "day 5 - demo test" =
-  let result = day_5 demo_input
+  let result = day_5 demo_input cranemover_9000
   in
   printf "Result day_5 (demo): %s\n" (ExtLib.dump result);
   String.equal result "CMZ"
 
 let%test "day 5-2 - demo test" =
-  let result = day_5 demo_input
+  let result = day_5 demo_input cranemover_9000
   in
   printf "Result day_5-2 (demo): %s\n" (ExtLib.dump result);
   true
@@ -79,7 +81,7 @@ let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day5_1.txt"
 
 let%test "day 5 - real test" =
-  let result = day_5 prep_input
+  let result = day_5 prep_input cranemover_9000
   in
   printf "Result day_5 (real): %s\n" (ExtLib.dump result);
   String.equal result "FZCMJCRHZ"
