@@ -42,6 +42,9 @@ let day_5 input =
                                      line
                                      0 in
                      ExtLib.print matched;
+                     ExtLib.print (Str.matched_group 1 line);
+                     ExtLib.print (Str.matched_group 2 line);
+                     ExtLib.print (Str.matched_group 3 line);
                      line
                    ) in
   ExtLib.print move_ops;
