@@ -38,7 +38,7 @@ let day_5 input =
   ExtLib.print (List.map col_stacks ~f:(fun (_, stack) -> Stack.top_exn stack));
   let move_ops = List.map move_lines ~f:(fun line ->
                      let matched = Str.string_match
-                                     (Str.regexp "^move \\(\\d+\\) from \\(\\d+\\) to \\(\\d+\\)")
+                                     (Str.regexp "^move \\([0-9]+\\) from \\([0-9]+\\) to \\([0-9]+\\)")
                                      line
                                      0 in
                      ExtLib.print matched;
