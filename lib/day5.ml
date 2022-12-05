@@ -21,11 +21,10 @@ let day_5 input =
   ExtLib.print stack_lines;
   ExtLib.print move_lines;
   let four_cols = ((String.length crates_numbers_line) - 4) / 4 in
-  let col_indices = 1 ::
-                      List.append
-                        (List.map ~f:(fun c -> 1 + (c * 4))
-                           (make_range 1 (four_cols+1)))
-                        [String.length crates_numbers_line-2] in
+  let col_indices = 1 :: List.append
+                           (List.map ~f:(fun c -> 1 + (c * 4))
+                              (make_range 1 (four_cols+1)))
+                           [String.length crates_numbers_line-2] in
   let col_stacks = List.map col_indices ~f:(fun i -> (i, Stack.create())) in
   ExtLib.print col_stacks;
   List.iter stack_lines ~f:(fun stack_line ->
@@ -35,6 +34,7 @@ let day_5 input =
         )
     );
   ExtLib.print col_stacks;
+  ExtLib.print (List.map col_stacks ~f:(fun (_, stack) -> Stack.top_exn stack));
   "CMZ"
 
 let demo_input = "    [D]    
