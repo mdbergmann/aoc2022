@@ -71,7 +71,7 @@ let cranemover_9001 crate_stacks =
     let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
     let popped = List.map (make_range 0 crate_count)
                    ~f:(fun _ -> Stack.pop_exn from_stack) in
-    List.iter (List.rev popped) ~f:(Stack.push to_stack)
+    List.iter popped ~f:(Stack.push to_stack)
   )
 
 let%test "day 5 - demo test" =
@@ -81,7 +81,7 @@ let%test "day 5 - demo test" =
   String.equal result "CMZ"
 
 let%test "day 5-2 - demo test" =
-  let result = day_5 demo_input cranemover_9000
+  let result = day_5 demo_input cranemover_9001
   in
   printf "Result day_5-2 (demo): %s\n" (ExtLib.dump result);
   true
