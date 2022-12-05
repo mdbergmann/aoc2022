@@ -16,7 +16,7 @@ let day_5 input =
     | Some (l_i, line) -> (l_i, line)
     | None -> assert false in
   ExtLib.print (creates_numbers_line_index, creates_numbers_line);
-  let stack_lines = List.sub lines ~pos:0 ~len:(creates_numbers_line_index-1) in
+  let stack_lines = List.sub lines ~pos:0 ~len:creates_numbers_line_index in
   let move_lines = List.drop lines (creates_numbers_line_index+2) in
   ExtLib.print stack_lines;
   ExtLib.print move_lines;  
