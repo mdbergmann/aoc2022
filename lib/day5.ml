@@ -4,9 +4,9 @@ open Stdio
 let inspect x = ExtLib.print x; x
 
 let make_range s e  =
-  let rec range_fun =
-    fun s e lst -> if s = e then lst
-                   else s :: range_fun (s+1) e lst
+  let rec range_fun s e lst =
+    if s = e then lst
+    else s :: range_fun (s+1) e lst
   in range_fun s e []
 
 let day_5 = 0
