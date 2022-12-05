@@ -11,11 +11,11 @@ let make_range s e  =
 
 let day_5 input =
   let lines = String.split_lines input in
-  let creates_stack_numbers_line = match
+  let (creates_numbers_line_index, creates_numbers_line) = match
       List.findi lines ~f:(fun _ line -> not (String.contains line '[')) with
     | Some (l_i, line) -> (l_i, line)
     | None -> assert false in
-  ExtLib.print creates_stack_numbers_line;
+  ExtLib.print (creates_numbers_line_index, creates_numbers_line);
   "CMZ"
 
 let demo_input = "    [D]    
