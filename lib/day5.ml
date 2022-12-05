@@ -58,12 +58,21 @@ move 1 from 1 to 2"
 
 let cranemover_9000 crate_stacks =
   (fun (crate_count,from_stack_num,to_stack_num) ->
+    let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
+    let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
     for _ = 0 to (crate_count-1) do
-      let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
-      let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
       let item = Stack.pop_exn from_stack in
       Stack.push to_stack item;
     done;)
+
+let cranemover_9001 crate_stacks = 
+  (fun (crate_count,from_stack_num,to_stack_num) ->
+    let from_stack = List.nth_exn crate_stacks (from_stack_num-1) in
+    let to_stack = List.nth_exn crate_stacks (to_stack_num-1) in
+    let popped = List.map (make_range 0 crate_count)
+                   ~f:(fun _ -> Stack.pop_exn from_stack) in
+    List.iter popped ~f:(Stack.push to_stack)
+  )
 
 let%test "day 5 - demo test" =
   let result = day_5 demo_input cranemover_9000
