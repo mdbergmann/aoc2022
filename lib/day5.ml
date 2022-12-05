@@ -84,7 +84,7 @@ let%test "day 5-2 - demo test" =
   let result = day_5 demo_input cranemover_9001
   in
   printf "Result day_5-2 (demo): %s\n" (ExtLib.dump result);
-  true
+  String.equal result "MCD"
 
 let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day5_1.txt"
