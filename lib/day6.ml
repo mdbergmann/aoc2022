@@ -29,6 +29,7 @@ let day_6 input =
             | Found_Marker acc -> acc
             | _ -> assert false in
   ExtLib.print acc;
+  ExtLib.print (String.substr_index_exn input ~pattern:acc);
   7
 
 let%test "day 6 - demo test, 1" =
