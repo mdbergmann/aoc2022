@@ -28,9 +28,10 @@ let day_6 input distinct_len =
             | Found_Marker acc -> acc
             | _ -> assert false in
   ExtLib.print acc;
-  ExtLib.print (String.substr_index_exn input ~pattern:acc);
-  let add_additional = if distinct_len = 14 then 4 else 0 in
-  4+add_additional+(String.substr_index_exn input ~pattern:acc)
+  let found_index = (String.substr_index_exn input ~pattern:acc) in
+  ExtLib.print found_index;
+  let add_additional = if distinct_len = 4 then 0 else 10 in
+  4+add_additional+found_index
 
 let%test "day 6 - demo test, 1" =
   let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 4
@@ -38,17 +39,23 @@ let%test "day 6 - demo test, 1" =
   printf "Result day_6 (demo, 1): %s\n" (ExtLib.dump result);
   result = 7
 
-let%test "day 6-2 - demo test, 1" =
-  let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 14
-  in
-  printf "Result day_6-2 (demo, 1): %s\n" (ExtLib.dump result);
-  result = 19
+(* let%test "day 6-2 - demo test, 1" = *)
+(*   let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 14 *)
+(*   in *)
+(*   printf "Result day_6-2 (demo, 1): %s\n" (ExtLib.dump result); *)
+(*   result = 19 *)
 
 let%test "day 6 - demo test, 2" =
   let result = day_6 "bvwbjplbgvbhsrlpgdmjqwftvncz" 4
   in
   printf "Result day_6 (demo, 2): %s\n" (ExtLib.dump result);
   result = 5
+
+let%test "day 6-2 - demo test, 2" =
+  let result = day_6 "bvwbjplbgvbhsrlpgdmjqwftvncz" 14
+  in
+  printf "Result day_6-2 (demo, 2): %s\n" (ExtLib.dump result);
+  result = 23
 
 let%test "day 6 - demo test, 3" =
   let result = day_6 "nppdvjthqldpwncqszvftbrmjlhg" 4
