@@ -10,12 +10,12 @@ let make_range s e  =
   in range_fun s e []
 
 let day_6 input =
-  let acc = String.fold input ~init:[] ~f:(fun acc c ->
+  let acc = String.fold input ~init:"" ~f:(fun acc c ->
                 let new_acc =
-                  if (List.length acc) < 4 then c :: acc
+                  if (String.length acc) < 4 then acc ^ (String.of_char c)
                   else
-                    if (List.exists acc ~f:(fun x -> Char.equal x c)) then
-                      c :: (List.drop acc 1)
+                    if (String.contains acc c) then
+                      (String.drop_prefix acc 1) ^ (String.of_char c)
                     else acc in
                 ExtLib.print new_acc;
                 new_acc
