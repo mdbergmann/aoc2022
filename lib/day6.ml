@@ -10,8 +10,8 @@ let make_range s e  =
   in range_fun s e []
 
 let day_6 input =
-  let acc = String.fold input ~init:[] ~f:(fun acc c ->
-      if (List.length acc) < 4 then c :: acc
+  let acc = String.fold input ~init:"" ~f:(fun acc c ->
+      if (String.length acc) < 4 then acc ^ String.of_char c
       else acc
     ) in
   ExtLib.print acc;
