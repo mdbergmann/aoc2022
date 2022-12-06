@@ -11,12 +11,12 @@ let make_range s e  =
 
 exception Found_Marker of string
 
-let day_6 input =
+let day_6 input distinct_len =
   let acc = try String.fold input
                   ~init:""
                   ~f:(fun acc c ->
                     let new_acc =
-                      if (String.length acc) < 4 then
+                      if (String.length acc) < distinct_len then
                         acc ^ (String.of_char c)
                       else
                         if (String.contains acc c) ||
@@ -28,22 +28,30 @@ let day_6 input =
             | Found_Marker acc -> acc
             | _ -> assert false in
   ExtLib.print acc;
-  4+(String.substr_index_exn input ~pattern:acc)
+  ExtLib.print (String.substr_index_exn input ~pattern:acc);
+  let add_additional = if distinct_len = 14 then 4 else 0 in
+  4+add_additional+(String.substr_index_exn input ~pattern:acc)
 
 let%test "day 6 - demo test, 1" =
-  let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+  let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 4
   in
   printf "Result day_6 (demo, 1): %s\n" (ExtLib.dump result);
   result = 7
 
+let%test "day 6-2 - demo test, 1" =
+  let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 14
+  in
+  printf "Result day_6-2 (demo, 1): %s\n" (ExtLib.dump result);
+  result = 19
+
 let%test "day 6 - demo test, 2" =
-  let result = day_6 "bvwbjplbgvbhsrlpgdmjqwftvncz"
+  let result = day_6 "bvwbjplbgvbhsrlpgdmjqwftvncz" 4
   in
   printf "Result day_6 (demo, 2): %s\n" (ExtLib.dump result);
   result = 5
 
 let%test "day 6 - demo test, 3" =
-  let result = day_6 "nppdvjthqldpwncqszvftbrmjlhg"
+  let result = day_6 "nppdvjthqldpwncqszvftbrmjlhg" 4
   in
   printf "Result day_6 (demo, 3): %s\n" (ExtLib.dump result);
   result = 6
@@ -52,7 +60,7 @@ let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day6_1.txt"
 
 let%test "day 6 - real test" =
-  let result = day_6 prep_input
+  let result = day_6 prep_input 4
   in
   printf "Result day_6 (real): %s\n" (ExtLib.dump result);
   result = 1542
