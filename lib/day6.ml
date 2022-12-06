@@ -17,7 +17,7 @@ let day_6 input =
                     if (String.contains acc c) then
                       (String.drop_prefix acc 1) ^ (String.of_char c)
                     else acc in
-                ExtLib.print (new_acc, c);
+                ExtLib.print (new_acc, (String.of_char c));
                 new_acc
               ) in
   ExtLib.print acc;
