@@ -12,7 +12,7 @@ let make_range s e  =
 exception Found_Marker of string
 
 let day_6 input distinct_len =
-  let acc = try String.fold input
+  let acc = try String.fold (String.drop_suffix input 1)
                   ~init:""
                   ~f:(fun acc c ->
                     let new_acc =
@@ -30,8 +30,8 @@ let day_6 input distinct_len =
   ExtLib.print acc;
   let found_index = (String.substr_index_exn input ~pattern:acc) in
   ExtLib.print found_index;
-  let add_additional = if distinct_len = 4 then 0 else 10 in
-  4+add_additional+found_index
+  let add_additional = if distinct_len = 4 then 4 else 14 in
+  add_additional+found_index
 
 let%test "day 6 - demo test, 1" =
   let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb" 4
@@ -84,7 +84,7 @@ let%test "day 6 - real test" =
   printf "Result day_6 (real): %s\n" (ExtLib.dump result);
   result = 1542
 
-let%test "day 6-3 - real test" =
+let%test "day 6-2 - real test" =
   let result = day_6 prep_input 14
   in
   printf "Result day_6-2 (real): %s\n" (ExtLib.dump result);
