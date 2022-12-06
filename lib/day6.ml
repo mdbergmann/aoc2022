@@ -19,8 +19,7 @@ let day_6 input distinct_len =
                       if (String.length acc) < distinct_len then
                         acc ^ (String.of_char c)
                       else
-                        if (String.contains acc c) ||
-                             (List.contains_dup (String.to_list acc) ~compare:Char.compare) then
+                        if (List.contains_dup (String.to_list acc) ~compare:Char.compare) then
                           (String.drop_prefix acc 1) ^ (String.of_char c)
                         else raise (Found_Marker acc) in
                     new_acc
