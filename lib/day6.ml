@@ -9,11 +9,13 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_6 _ =
-  let stack = ref [] in
-  ExtLib.print stack;
+let day_6 input =
+  let acc = String.fold input ~init:[] ~f:(fun acc c ->
+      if (List.length acc) < 4 then c :: acc
+      else acc
+    ) in
+  ExtLib.print acc;
   7
-
 
 let%test "day 6 - demo test, 1" =
   let result = day_6 "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
