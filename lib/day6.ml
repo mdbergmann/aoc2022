@@ -16,6 +16,7 @@ let day_6 _ =
   Stack.push stack "a";
   Stack.push stack "a";
   Stack.push stack "a";
+  Stack.push stack "b";
   7
 
 
