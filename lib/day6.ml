@@ -23,7 +23,6 @@ let day_6 input =
                              (List.contains_dup (String.to_list acc) ~compare:Char.compare) then
                           (String.drop_prefix acc 1) ^ (String.of_char c)
                         else raise (Found_Marker acc) in
-                    ExtLib.print (acc, new_acc, (String.of_char c));
                     new_acc
                   ) with
             | Found_Marker acc -> acc
