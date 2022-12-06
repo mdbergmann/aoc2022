@@ -15,9 +15,9 @@ let day_6 input =
                   if (String.length acc) < 4 then acc ^ (String.of_char c)
                   else
                     if (String.contains acc c) then
-                      ((String.drop_prefix acc 1) ^ (String.of_char c))
+                      (String.drop_prefix acc 1) ^ (String.of_char c)
                     else acc in
-                ExtLib.print (new_acc, (String.of_char c));
+                ExtLib.print (acc, new_acc, (String.of_char c));
                 new_acc
               ) in
   ExtLib.print acc;
