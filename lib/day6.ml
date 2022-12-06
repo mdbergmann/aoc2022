@@ -1,6 +1,5 @@
 open! Base
 open Stdio
-open! Str
 
 let inspect x = ExtLib.print x; x
 
@@ -10,7 +9,11 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_6 _ = 7
+let day_6 _ =
+  let stack = Stack.create() in
+  Stack.set_capacity stack 4;
+  
+  7
 
 
 let%test "day 6 - demo test, 1" =
