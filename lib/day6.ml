@@ -12,7 +12,10 @@ let make_range s e  =
 let day_6 _ =
   let stack = Stack.create() in
   Stack.set_capacity stack 4;
-  
+  Stack.push stack "a";
+  Stack.push stack "a";
+  Stack.push stack "a";
+  Stack.push stack "a";
   7
 
 
