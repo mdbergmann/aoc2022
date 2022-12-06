@@ -55,4 +55,4 @@ let%test "day 6 - real test" =
   let result = day_6 prep_input
   in
   printf "Result day_6 (real): %s\n" (ExtLib.dump result);
-  true
+  result = 1542
