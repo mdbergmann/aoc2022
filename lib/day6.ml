@@ -19,6 +19,9 @@ let day_6 _ =
   Stack.push stack "b";
   ExtLib.print stack;
   ExtLib.print (Stack.length stack);
+  Stack.set_capacity stack 4;
+  ExtLib.print stack;
+  ExtLib.print (Stack.length stack);
   7
 
 
