@@ -10,18 +10,8 @@ let make_range s e  =
   in range_fun s e []
 
 let day_6 _ =
-  let stack = Stack.create() in
-  Stack.set_capacity stack 4;
-  Stack.push stack "a";
-  Stack.push stack "a";
-  Stack.push stack "a";
-  Stack.push stack "a";
-  Stack.push stack "b";
+  let stack = ref [] in
   ExtLib.print stack;
-  ExtLib.print (Stack.length stack);
-  Stack.set_capacity stack 4;
-  ExtLib.print stack;
-  ExtLib.print (Stack.length stack);
   7
 
 
