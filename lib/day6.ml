@@ -12,7 +12,10 @@ let make_range s e  =
 let day_6 input =
   let acc = String.fold input ~init:"" ~f:(fun acc c ->
       if (String.length acc) < 4 then acc ^ String.of_char c
-      else acc
+      else
+        if (String.contains acc c) then
+          (String.drop_prefix acc 1) ^ (String.of_char c)
+        else acc
     ) in
   ExtLib.print acc;
   7
