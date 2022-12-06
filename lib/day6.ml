@@ -14,7 +14,8 @@ let day_6 input =
                 let new_acc =
                   if (String.length acc) < 4 then acc ^ (String.of_char c)
                   else
-                    if (String.contains acc c) then
+                    if (String.contains acc c) ||
+                         (List.contains_dup (String.to_list acc) ~compare:Char.compare) then
                       (String.drop_prefix acc 1) ^ (String.of_char c)
                     else acc in
                 ExtLib.print (acc, new_acc, (String.of_char c));
