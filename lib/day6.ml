@@ -26,9 +26,7 @@ let day_6 input distinct_len =
                   ) with
             | Found_Marker acc -> acc
             | _ -> assert false in
-  ExtLib.print acc;
   let found_index = (String.substr_index_exn input ~pattern:acc) in
-  ExtLib.print found_index;
   let add_additional = if distinct_len = 4 then 4 else 14 in
   add_additional+found_index
 
