@@ -18,6 +18,7 @@ let day_7 input =
                         | "$ cd /" -> []
                         | _ -> acc
                       ) in
+  ExtLib.print cmds;
   ExtLib.print folder_tree;
   95437
 
