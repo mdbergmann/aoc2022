@@ -16,6 +16,7 @@ let day_7 input =
                       ~f:(fun acc cmd ->
                         match cmd with
                         | "$ cd /" -> []
+                        | "$ ls" -> acc
                         | _ -> acc
                       ) in
   ExtLib.print cmds;
