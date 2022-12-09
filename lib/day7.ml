@@ -11,7 +11,14 @@ let make_range s e  =
 
 let day_7 input =
   let cmds = String.split_lines input in
-  ExtLib.print cmds;
+  let folder_tree = List.fold cmds
+                      ~init:[]
+                      ~f:(fun acc cmd ->
+                        match cmd with
+                        | "$ cd /" -> []
+                        | _ -> acc
+                      ) in
+  ExtLib.print folder_tree;
   95437
 
 let demo_input = "$ cd /
