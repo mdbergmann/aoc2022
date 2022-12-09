@@ -10,7 +10,8 @@ let make_range s e  =
   in range_fun s e []
 
 let day_7 input =
-  ExtLib.print input;
+  let cmds = String.split_lines input in
+  ExtLib.print cmds;
   95437
 
 let demo_input = "$ cd /
