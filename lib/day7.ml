@@ -1,4 +1,4 @@
-open! Base
+open Base
 open Stdio
 
 let inspect x = ExtLib.print x; x
@@ -9,7 +9,9 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-let day_7 _ = 95437
+let day_7 input =
+  ExtLib.print input;
+  95437
 
 let demo_input = "$ cd /
 $ ls
