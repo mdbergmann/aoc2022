@@ -29,8 +29,16 @@ let day_7 input =
            (match (String.split cmd ~on:' ') with
             | [_; "/"] ->
                gen_folder_tree root_dir root_dir cmds_rest
-            | [_; _dir_name] ->
-               gen_folder_tree root_dir root_dir cmds_rest
+            | [_; dir_name] ->
+               (match curr_dir with
+                | Dir(_, dir_items, _) ->
+                   let new_curr_dir = List.find_exn dir_items
+                                        ~f:(fun item ->
+                                          match item with
+                                          | Dir(name, _, _) -> String.equal name dir_name
+                                          | _ -> false) in
+                   gen_folder_tree root_dir new_curr_dir cmds_rest
+                | _ -> assert false)
             | _ ->
                gen_folder_tree root_dir root_dir cmds_rest
            )
