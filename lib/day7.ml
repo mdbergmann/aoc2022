@@ -29,7 +29,7 @@ let day_7 input =
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
            ExtLib.print cmd;
            (match (String.split cmd ~on:' ') with
-            | ["dir "; new_dir_name] ->
+            | ["dir"; new_dir_name] ->
                ExtLib.print new_dir_name;
                (match curr_dir with
                 | Dir(dir_name, fs_items, parent) ->
