@@ -9,16 +9,15 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
-type fs_item =
-  | File of string * int
-  | Dir of string * fs_item list * fs_item option
+type fs_file = File of string * int
+type fs_dir = Dir of string * fs_dir list * fs_file list * fs_dir option
 
 let day_7 input =
   let cmds = String.split_lines input in
   ExtLib.print cmds;
   let rec find_root_dir dir =
     match dir with
-    | Dir(_, _, Some parent) -> find_root_dir parent
+    | Dir(_, _, _, Some parent) -> find_root_dir parent
     | _ -> dir in
   let rec gen_folder_tree curr_dir cmd_lines =
     match cmd_lines with
@@ -33,45 +32,39 @@ let day_7 input =
                gen_folder_tree (find_root_dir curr_dir) cmds_rest
             | [_; _; ".."] ->
                (match curr_dir with
-               | Dir(_, _, Some parent_dir) ->
+               | Dir(_, _, _, Some parent_dir) ->
                   gen_folder_tree parent_dir cmds_rest
                | _ ->
                   gen_folder_tree curr_dir cmds_rest)
             | [_; _; dir_name] ->
-               (match curr_dir with
-                | Dir(_, dir_items, _) ->
-                   (let new_curr_dir_opt = List.find dir_items
+               let Dir(_, dir_items, _, _) = curr_dir in
+               let new_curr_dir_opt = List.find dir_items
                                         ~f:(fun item ->
-                                          match item with
-                                          | Dir(name, _, _) -> (String.equal name dir_name)
-                                          | _ -> false) in
-                   match new_curr_dir_opt with
-                   | Some new_curr_dir -> 
-                      gen_folder_tree new_curr_dir cmds_rest
-                   | _ ->
-                      gen_folder_tree curr_dir cmds_rest)
-                | _ -> assert false)
-            | _ -> 
+                                          let Dir(name, _, _, _) = item in
+                                          String.equal name dir_name) in
+               (match new_curr_dir_opt with
+               | Some new_curr_dir -> 
+                  gen_folder_tree new_curr_dir cmds_rest
+               | _ ->
+                  gen_folder_tree curr_dir cmds_rest)
+            | _ ->
                gen_folder_tree curr_dir cmds_rest
            )
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
            (match (String.split cmd ~on:' ') with
             | ["dir"; new_dir_name] ->
-               (match curr_dir with
-                | Dir(dir_name, fs_items, parent_dir) ->
-                   let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
-                   let new_curr_dir = Dir(dir_name, new_fs_items, parent_dir) in
-                   let updated_parents = List.map new_fs_items
-                                           ~f:(fun item ->
-                                             match item with
-                                             | Dir(name, lst, _) -> Dir(name, lst, Some new_curr_dir)
-                                             | x -> x) in
-                   gen_folder_tree (Dir(dir_name, updated_parents, parent_dir)) cmds_rest
-                | _ -> assert false)
+               let Dir(dir_name, fs_dirs, fs_files, parent_dir) = curr_dir in
+               let new_fs_dirs = Dir(new_dir_name, [], [], Some curr_dir) :: fs_dirs in
+               let new_curr_dir = Dir(dir_name, new_fs_dirs, fs_files, parent_dir) in
+               let updated_parents = List.map new_fs_dirs
+                                       ~f:(fun item ->
+                                         let Dir(name, dir_lst, file_lst, _) = item in
+                                         Dir(name, dir_lst, file_lst, Some new_curr_dir)) in
+               gen_folder_tree (Dir(dir_name, updated_parents, fs_files, parent_dir)) cmds_rest
             | _ -> gen_folder_tree curr_dir cmds_rest)
         | _ -> gen_folder_tree curr_dir cmds_rest)
   in
-  let root_dir = Dir("/", [], None) in
+  let root_dir = Dir("/", [], [], None) in
   let folder_tree = gen_folder_tree root_dir cmds in
   ExtLib.print folder_tree;
   95437
