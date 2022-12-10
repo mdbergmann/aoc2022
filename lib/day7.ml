@@ -29,6 +29,12 @@ let day_7 input =
            (match (String.split cmd ~on:' ') with
             | [_; _; "/"] ->
                gen_folder_tree root_dir root_dir cmds_rest
+            | [_; _; ".."] ->
+               (match curr_dir with
+               | Dir(_, _, Some parent_dir) ->
+                  gen_folder_tree root_dir parent_dir cmds_rest
+               | _ ->
+                  gen_folder_tree root_dir curr_dir cmds_rest)
             | [_; _; dir_name] ->
                (match curr_dir with
                 | Dir(_, dir_items, _) ->
@@ -50,9 +56,9 @@ let day_7 input =
            (match (String.split cmd ~on:' ') with
             | ["dir"; new_dir_name] ->
                (match curr_dir with
-                | Dir(dir_name, fs_items, parent) ->
+                | Dir(dir_name, fs_items, parent_dir) ->
                    let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
-                   let new_curr_dir = Dir(dir_name, new_fs_items, parent) in
+                   let new_curr_dir = Dir(dir_name, new_fs_items, parent_dir) in
                    gen_folder_tree root_dir new_curr_dir cmds_rest
                 | _ -> assert false)
             | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
