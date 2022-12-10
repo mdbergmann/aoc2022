@@ -22,9 +22,7 @@ let day_7 input =
     | _ -> dir in
   let rec gen_folder_tree curr_dir cmd_lines =
     match cmd_lines with
-    | [] -> (match curr_dir with
-            | Dir (_, _, Some parent_dir) -> parent_dir
-            | dir -> find_root_dir dir)
+    | [] -> find_root_dir curr_dir
     | cmd :: cmds_rest ->
        ExtLib.print (cmd, curr_dir);
        (match cmd with
