@@ -22,8 +22,9 @@ let day_7 input =
             | Dir (_, _, None) -> root_dir)
     | cmd :: cmds_rest ->
        (match cmd with
-       | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
-       | _ -> curr_dir) in
+        | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
+        | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
+        | _ -> curr_dir) in
   let root_dir = Dir("/", [], None) in
   let folder_tree = gen_folder_tree root_dir root_dir cmds in
   ExtLib.print folder_tree;
