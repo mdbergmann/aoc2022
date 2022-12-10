@@ -16,25 +16,29 @@ type fs_item =
 let day_7 input =
   let cmds = String.split_lines input in
   ExtLib.print cmds;
-  let rec gen_folder_tree root_dir curr_dir cmd_lines =
+  let rec find_root_dir dir =
+    match dir with
+    | Dir(_, _, Some parent) -> find_root_dir parent
+    | _ -> dir in
+  let rec gen_folder_tree curr_dir cmd_lines =
     match cmd_lines with
     | [] -> (match curr_dir with
             | Dir (_, _, Some parent_dir) -> parent_dir
-            | _ -> root_dir)
+            | dir -> find_root_dir dir)
     | cmd :: cmds_rest ->
        ExtLib.print (cmd, curr_dir);
        (match cmd with
-        | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
+        | "$ ls" -> gen_folder_tree curr_dir cmds_rest
         | cmd when String.is_prefix cmd ~prefix:"$ cd " ->
            (match (String.split cmd ~on:' ') with
             | [_; _; "/"] ->
-               gen_folder_tree root_dir root_dir cmds_rest
+               gen_folder_tree (find_root_dir curr_dir) cmds_rest
             | [_; _; ".."] ->
                (match curr_dir with
                | Dir(_, _, Some parent_dir) ->
-                  gen_folder_tree root_dir parent_dir cmds_rest
+                  gen_folder_tree parent_dir cmds_rest
                | _ ->
-                  gen_folder_tree root_dir curr_dir cmds_rest)
+                  gen_folder_tree curr_dir cmds_rest)
             | [_; _; dir_name] ->
                (match curr_dir with
                 | Dir(_, dir_items, _) ->
@@ -45,12 +49,12 @@ let day_7 input =
                                           | _ -> false) in
                    match new_curr_dir_opt with
                    | Some new_curr_dir -> 
-                      gen_folder_tree root_dir new_curr_dir cmds_rest
+                      gen_folder_tree new_curr_dir cmds_rest
                    | _ ->
-                      gen_folder_tree root_dir curr_dir cmds_rest)
+                      gen_folder_tree curr_dir cmds_rest)
                 | _ -> assert false)
             | _ -> 
-               gen_folder_tree root_dir root_dir cmds_rest
+               gen_folder_tree curr_dir cmds_rest
            )
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
            (match (String.split cmd ~on:' ') with
@@ -59,13 +63,13 @@ let day_7 input =
                 | Dir(dir_name, fs_items, parent_dir) ->
                    let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
                    let new_curr_dir = Dir(dir_name, new_fs_items, parent_dir) in
-                   gen_folder_tree root_dir new_curr_dir cmds_rest
+                   gen_folder_tree new_curr_dir cmds_rest
                 | _ -> assert false)
-            | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
-        | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+            | _ -> gen_folder_tree curr_dir cmds_rest)
+        | _ -> gen_folder_tree curr_dir cmds_rest)
   in
   let root_dir = Dir("/", [], None) in
-  let folder_tree = gen_folder_tree root_dir root_dir cmds in
+  let folder_tree = gen_folder_tree root_dir cmds in
   ExtLib.print folder_tree;
   95437
 
