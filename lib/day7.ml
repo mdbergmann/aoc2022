@@ -27,6 +27,7 @@ let day_7 input =
         | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
         | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
+           ExtLib.print cmd;
            (match (String.split cmd ~on:' ') with
             | ["dir "; new_dir_name] ->
                ExtLib.print new_dir_name;
