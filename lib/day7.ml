@@ -63,7 +63,12 @@ let day_7 input =
                 | Dir(dir_name, fs_items, parent_dir) ->
                    let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
                    let new_curr_dir = Dir(dir_name, new_fs_items, parent_dir) in
-                   gen_folder_tree new_curr_dir cmds_rest
+                   let updated_parents = List.map new_fs_items
+                                           ~f:(fun item ->
+                                             match item with
+                                             | Dir(name, lst, _) -> Dir(name, lst, Some new_curr_dir)
+                                             | x -> x) in
+                   gen_folder_tree (Dir(dir_name, updated_parents, parent_dir)) cmds_rest
                 | _ -> assert false)
             | _ -> gen_folder_tree curr_dir cmds_rest)
         | _ -> gen_folder_tree curr_dir cmds_rest)
