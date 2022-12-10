@@ -27,7 +27,7 @@ let day_7 input =
         | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
         | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
         | cmd -> (match (String.split cmd ~on:' ') with
-                  | "dir " :: new_dir_name :: _ ->
+                  | ["dir "; new_dir_name] ->
                      ExtLib.print new_dir_name;
                      (match curr_dir with
                       | Dir(dir_name, fs_items, parent) ->
