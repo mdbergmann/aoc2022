@@ -9,17 +9,16 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
+type fs_file = File of string * int
+type fs_dir = Dir of string * fs_file list
+
 let day_7 input =
   let cmds = String.split_lines input in
-  let folder_tree = List.fold cmds
-                      ~init:[]
-                      ~f:(fun acc cmd ->
-                        match cmd with
-                        | "$ cd /" -> []
-                        | "$ ls" -> acc
-                        | _ -> acc
-                      ) in
   ExtLib.print cmds;
+  let gen_folder_tree curr_dir _parent_dir cmd_lines =
+    match cmd_lines with
+    | _ -> curr_dir in
+  let folder_tree = gen_folder_tree (Dir("/", [])) None cmds in
   ExtLib.print folder_tree;
   95437
 
