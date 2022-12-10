@@ -19,13 +19,30 @@ let day_7 input =
     match dir with
     | Dir(_, _, _, Some parent) -> find_root_dir parent
     | _ -> dir in
+  let rec ls_folder curr_dir cmds =
+    match cmds with
+    | [] -> (find_root_dir curr_dir, [])
+    | cmd :: cmds_rest ->
+       match cmd with
+       | cmd when String.is_prefix cmd ~prefix:"dir" ->
+          (match (String.split cmd ~on:' ') with
+           | ["dir"; new_dir_name] ->
+              let Dir(dir_name, fs_dirs, fs_files, parent_dir) = curr_dir in
+              let new_fs_dirs = Dir(new_dir_name, [], [], Some curr_dir) :: fs_dirs in
+              let new_curr_dir = Dir(dir_name, new_fs_dirs, fs_files, parent_dir) in
+              ls_folder new_curr_dir cmds_rest
+           | _ -> (curr_dir, cmds))
+       | _ -> (curr_dir, cmds) in
+    
   let rec gen_folder_tree curr_dir cmd_lines =
     match cmd_lines with
     | [] -> find_root_dir curr_dir
     | cmd :: cmds_rest ->
        ExtLib.print (cmd, curr_dir);
        (match cmd with
-        | "$ ls" -> gen_folder_tree curr_dir cmds_rest
+        | "$ ls" ->
+           let (new_curr_dir, new_cmds_rest) = ls_folder curr_dir cmds_rest in
+           gen_folder_tree new_curr_dir new_cmds_rest
         | cmd when String.is_prefix cmd ~prefix:"$ cd " ->
            (match (String.split cmd ~on:' ') with
             | [_; _; "/"] ->
@@ -50,18 +67,6 @@ let day_7 input =
             | _ ->
                gen_folder_tree curr_dir cmds_rest
            )
-        | cmd when String.is_prefix cmd ~prefix:"dir" ->
-           (match (String.split cmd ~on:' ') with
-            | ["dir"; new_dir_name] ->
-               let Dir(dir_name, fs_dirs, fs_files, parent_dir) = curr_dir in
-               let new_fs_dirs = Dir(new_dir_name, [], [], Some curr_dir) :: fs_dirs in
-               let new_curr_dir = Dir(dir_name, new_fs_dirs, fs_files, parent_dir) in
-               let updated_parents = List.map new_fs_dirs
-                                       ~f:(fun item ->
-                                         let Dir(name, dir_lst, file_lst, _) = item in
-                                         Dir(name, dir_lst, file_lst, Some new_curr_dir)) in
-               gen_folder_tree (Dir(dir_name, updated_parents, fs_files, parent_dir)) cmds_rest
-            | _ -> gen_folder_tree curr_dir cmds_rest)
         | _ -> gen_folder_tree curr_dir cmds_rest)
   in
   let root_dir = Dir("/", [], [], None) in
