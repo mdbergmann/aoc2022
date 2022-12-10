@@ -37,6 +37,7 @@ let day_7 input =
                                           match item with
                                           | Dir(name, _, _) -> String.equal name dir_name
                                           | _ -> false) in
+                   ExtLib.print new_curr_dir;
                    gen_folder_tree root_dir new_curr_dir cmds_rest
                 | _ -> assert false)
             | _ ->
@@ -50,7 +51,7 @@ let day_7 input =
                    let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
                    let new_curr_dir = Dir(dir_name, new_fs_items, parent) in
                    gen_folder_tree root_dir new_curr_dir cmds_rest
-                | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+                | _ -> assert false)
             | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
         | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
   in
