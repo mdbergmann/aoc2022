@@ -27,14 +27,15 @@ let day_7 input =
         | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
         | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
         | cmd -> (match (String.split cmd ~on:' ') with
-                 | "dir " :: new_dir_name :: _ ->
-                    (match curr_dir with
-                     | Dir(dir_name, fs_items, parent) ->
-                        let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
-                        let new_curr_dir = Dir(dir_name, new_fs_items, parent) in
-                       gen_folder_tree root_dir new_curr_dir cmds_rest
-                     | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
-                 | _ -> gen_folder_tree root_dir curr_dir cmds_rest))
+                  | "dir " :: new_dir_name :: _ ->
+                     ExtLib.print new_dir_name;
+                     (match curr_dir with
+                      | Dir(dir_name, fs_items, parent) ->
+                         let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
+                         let new_curr_dir = Dir(dir_name, new_fs_items, parent) in
+                         gen_folder_tree root_dir new_curr_dir cmds_rest
+                      | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+                  | _ -> gen_folder_tree root_dir curr_dir cmds_rest))
   in
   let root_dir = Dir("/", [], None) in
   let folder_tree = gen_folder_tree root_dir root_dir cmds in
