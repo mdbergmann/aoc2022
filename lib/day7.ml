@@ -28,9 +28,11 @@ let day_7 input =
         | cmd -> (match (String.split cmd ~on:' ') with
                  | "dir " :: dir_name :: _ ->
                     (match curr_dir with
-                    | Dir(name, fs_items, parent) -> 
-                       gen_folder_tree root_dir (Dir(name, (Dir(dir_name, [], Some curr_dir) :: fs_items), parent)) cmds_rest
-                    | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+                     | Dir(name, fs_items, parent) ->
+                        let new_fs_items = Dir(dir_name, [], Some curr_dir) :: fs_items in
+                        let new_curr_dir = Dir(name, new_fs_items, parent) in
+                       gen_folder_tree root_dir new_curr_dir cmds_rest
+                     | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
                  | _ -> gen_folder_tree root_dir curr_dir cmds_rest))
   in
   let root_dir = Dir("/", [], None) in
