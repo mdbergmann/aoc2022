@@ -41,6 +41,7 @@ let day_7 input =
                    gen_folder_tree root_dir new_curr_dir cmds_rest
                 | _ -> assert false)
             | _ ->
+               ExtLib.print "No dir name!";
                gen_folder_tree root_dir root_dir cmds_rest
            )
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
