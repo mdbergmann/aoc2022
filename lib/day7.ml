@@ -27,21 +27,23 @@ let day_7 input =
         | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
         | cmd when String.is_prefix cmd ~prefix:"$ cd " ->
            (match (String.split cmd ~on:' ') with
-            | [_; "/"] ->
+            | [_; _; "/"] ->
                gen_folder_tree root_dir root_dir cmds_rest
-            | [_; dir_name] ->
+            | [_; _; dir_name] ->
                (match curr_dir with
                 | Dir(_, dir_items, _) ->
-                   let new_curr_dir = List.find_exn dir_items
+                   (let new_curr_dir_opt = List.find dir_items
                                         ~f:(fun item ->
                                           match item with
-                                          | Dir(name, _, _) -> String.equal name dir_name
+                                          | Dir(name, _, _) -> (String.equal name dir_name)
                                           | _ -> false) in
-                   ExtLib.print new_curr_dir;
-                   gen_folder_tree root_dir new_curr_dir cmds_rest
+                   match new_curr_dir_opt with
+                   | Some new_curr_dir -> 
+                      gen_folder_tree root_dir new_curr_dir cmds_rest
+                   | _ ->
+                      gen_folder_tree root_dir curr_dir cmds_rest)
                 | _ -> assert false)
-            | _ ->
-               ExtLib.print "No dir name!";
+            | _ -> 
                gen_folder_tree root_dir root_dir cmds_rest
            )
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
