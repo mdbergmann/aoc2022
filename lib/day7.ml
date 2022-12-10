@@ -24,8 +24,16 @@ let day_7 input =
     | cmd :: cmds_rest ->
        ExtLib.print (cmd, curr_dir);
        (match cmd with
-        | "$ cd /" -> gen_folder_tree root_dir root_dir cmds_rest
         | "$ ls" -> gen_folder_tree root_dir curr_dir cmds_rest
+        | cmd when String.is_prefix cmd ~prefix:"$ cd " ->
+           (match (String.split cmd ~on:' ') with
+            | [_; "/"] ->
+               gen_folder_tree root_dir root_dir cmds_rest
+            | [_; _dir_name] ->
+               gen_folder_tree root_dir root_dir cmds_rest
+            | _ ->
+               gen_folder_tree root_dir root_dir cmds_rest
+           )
         | cmd when String.is_prefix cmd ~prefix:"dir" ->
            (match (String.split cmd ~on:' ') with
             | ["dir"; new_dir_name] ->
@@ -36,7 +44,7 @@ let day_7 input =
                    gen_folder_tree root_dir new_curr_dir cmds_rest
                 | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
             | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
-        | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+            | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
   in
   let root_dir = Dir("/", [], None) in
   let folder_tree = gen_folder_tree root_dir root_dir cmds in
