@@ -30,7 +30,6 @@ let day_7 input =
            ExtLib.print cmd;
            (match (String.split cmd ~on:' ') with
             | ["dir"; new_dir_name] ->
-               ExtLib.print new_dir_name;
                (match curr_dir with
                 | Dir(dir_name, fs_items, parent) ->
                    let new_fs_items = Dir(new_dir_name, [], Some curr_dir) :: fs_items in
