@@ -44,7 +44,7 @@ let day_7 input =
                    gen_folder_tree root_dir new_curr_dir cmds_rest
                 | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
             | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
-            | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
+        | _ -> gen_folder_tree root_dir curr_dir cmds_rest)
   in
   let root_dir = Dir("/", [], None) in
   let folder_tree = gen_folder_tree root_dir root_dir cmds in
