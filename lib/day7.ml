@@ -14,7 +14,6 @@ type fs_dir = Dir of string * fs_dir list * fs_file list * fs_dir option
 
 let day_7 input =
   let cmds = String.split_lines input in
-  ExtLib.print cmds;
   let rec find_root_dir dir =
     match dir with
     | Dir(_, _, _, Some parent) -> find_root_dir parent
@@ -38,7 +37,6 @@ let day_7 input =
     match cmd_lines with
     | [] -> find_root_dir curr_dir
     | cmd :: cmds_rest ->
-       ExtLib.print (cmd, curr_dir);
        (match cmd with
         | "$ ls" ->
            let (new_curr_dir, new_cmds_rest) = ls_folder curr_dir cmds_rest in
@@ -70,8 +68,7 @@ let day_7 input =
         | _ -> gen_folder_tree curr_dir cmds_rest)
   in
   let root_dir = Dir("/", [], [], None) in
-  let folder_tree = gen_folder_tree root_dir cmds in
-  ExtLib.print folder_tree;
+  let _ = gen_folder_tree root_dir cmds in
   95437
 
 let demo_input = "$ cd /
