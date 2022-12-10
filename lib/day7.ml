@@ -98,7 +98,7 @@ $ ls
 let%test "day 7 - demo test, 1" =
   let result = day_7 demo_input
   in
-  printf "Result day_6 (demo, 1): %s\n" (ExtLib.dump result);
+  printf "Result day_7 (demo, 1): %s\n" (ExtLib.dump result);
   result = 95437
 
 (* let prep_input = *)
