@@ -74,27 +74,32 @@ let day_8 input =
   ExtLib.print visible_trees_rows;
   assert (visible_trees_rows = 5);
 
-  (* let cols = *)
-  (*   let outer = Array.create ~len:(List.length rows) [||] in *)
-  (*   List.iteri rows ~f:(fun _i row -> *)
-  (*       List.iteri row *)
-  (*         ~f:(fun j elem -> *)
-  (*           let inner = (Array.get outer j) in *)
-  (*           let new_inner = Array.append inner [|elem|] in *)
-  (*           Array.set outer j new_inner; *)
-  (*         ); *)
-  (*     ); *)
-  (*   Array.to_list (Array.map outer ~f:Array.to_list) in *)
-  (* ExtLib.print cols; *)
+  let cols =
+    let outer = Array.create ~len:(List.length rows) [||] in
+    List.iteri rows ~f:(fun _i row ->
+        List.iteri row
+          ~f:(fun j elem ->
+            let inner = (Array.get outer j) in
+            let new_inner = Array.append inner [|elem|] in
+            Array.set outer j new_inner;
+          );
+      );
+    Array.to_list (Array.map outer ~f:Array.to_list) in
+  ExtLib.print cols;
 
   
-  (* let effective_cols = (List.drop_last_exn (List.drop cols 1)) in *)
-  (* let visible_trees_cols = (List.fold (List.mapi effective_cols *)
-  (*                                        ~f:(fun i x -> hori_count (visible_trees_row_inner x i))) *)
-  (*                            ~init:0 *)
-  (*                            ~f:(+)) in *)
-  (* ExtLib.print visible_trees_cols; *)
-  (* assert (visible_trees_cols = 5); *)
+  let effective_cols = (List.drop_last_exn (List.drop cols 1)) in
+  let visible_tree_indices_cols_tmp = List.fold (List.mapi effective_cols
+                                                   ~f:(fun i x ->
+                                                     visible_trees_row_inner x i))
+                                        ~init:[]
+                                        ~f:List.append in
+  let visible_tree_indices_cols = List.map visible_tree_indices_cols_tmp
+                                    ~f:(fun (l_index, r_index) -> (r_index, l_index)) in
+  
+  ExtLib.print visible_tree_indices_cols;
+  let visible_trees_cols = List.length visible_tree_indices_cols in
+  assert (visible_trees_cols = 3);
   
   21
 
