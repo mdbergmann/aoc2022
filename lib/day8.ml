@@ -44,42 +44,44 @@ let day_8 input =
     let (_, from_left_index) = visible_trees_from_left_on_row row in
     let (_, from_right_index) = visible_trees_from_right_on_row row in
 
-    if (from_left_index > 0) && (from_right_index < (List.length row))
+    if (from_left_index > 0) && (from_right_index < ((List.length row) - 1))
     then 
       if (from_left_index = from_right_index)
       then 1
       else 2
     else 0 in
 
-  let effective_rows = (List.drop_last_exn (List.drop rows 1)) in
-  let visible_trees_rows = (List.fold (List.map effective_rows
-                                         ~f:visible_trees_count_hori_inner)
-                             ~init:0
-                             ~f:(+)) in
+  assert ((visible_trees_count_hori_inner (List.nth_exn rows 0)) = 1);
   
-  ExtLib.print visible_trees_rows;
-  assert (visible_trees_rows = 3);
+  (* let effective_rows = (List.drop_last_exn (List.drop rows 1)) in *)
+  (* let visible_trees_rows = (List.fold (List.map effective_rows *)
+  (*                                        ~f:visible_trees_count_hori_inner) *)
+  (*                            ~init:0 *)
+  (*                            ~f:(+)) in *)
+  
+  (* ExtLib.print visible_trees_rows; *)
+  (* assert (visible_trees_rows = 2); *)
 
-  let cols =
-    let outer = Array.create ~len:(List.length rows) [||] in
-    List.iteri rows ~f:(fun _i row ->
-        List.iteri row
-          ~f:(fun j elem ->
-            let inner = (Array.get outer j) in
-            let new_inner = Array.append inner [|elem|] in
-            Array.set outer j new_inner;
-          );
-      );
-    Array.to_list (Array.map outer ~f:Array.to_list) in  
-  ExtLib.print cols;
+  (* let cols = *)
+  (*   let outer = Array.create ~len:(List.length rows) [||] in *)
+  (*   List.iteri rows ~f:(fun _i row -> *)
+  (*       List.iteri row *)
+  (*         ~f:(fun j elem -> *)
+  (*           let inner = (Array.get outer j) in *)
+  (*           let new_inner = Array.append inner [|elem|] in *)
+  (*           Array.set outer j new_inner; *)
+  (*         ); *)
+  (*     ); *)
+  (*   Array.to_list (Array.map outer ~f:Array.to_list) in   *)
+  (* ExtLib.print cols; *)
 
-  let effective_cols = (List.drop_last_exn (List.drop cols 1)) in
-  let visible_trees_cols = (List.fold (List.map effective_cols
-                                         ~f:visible_trees_count_hori_inner)
-                             ~init:0
-                             ~f:(+)) in  
-  ExtLib.print visible_trees_cols;
-  assert (visible_trees_cols = 5);
+  (* let effective_cols = (List.drop_last_exn (List.drop cols 1)) in *)
+  (* let visible_trees_cols = (List.fold (List.map effective_cols *)
+  (*                                        ~f:visible_trees_count_hori_inner) *)
+  (*                            ~init:0 *)
+  (*                            ~f:(+)) in   *)
+  (* ExtLib.print visible_trees_cols; *)
+  (* assert (visible_trees_cols = 5); *)
   
   21
 
