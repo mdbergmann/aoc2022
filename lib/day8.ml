@@ -44,15 +44,21 @@ let day_8 input =
     let (_, from_left_index) = visible_trees_from_left_on_row row in
     let (_, from_right_index) = visible_trees_from_right_on_row row in
 
-    if (from_left_index > 0) && (from_right_index < ((List.length row) - 1))
-    then 
-      if (from_left_index = from_right_index)
-      then 1
-      else 2
-    else 0 in
+    ExtLib.print (from_left_index, from_right_index);
+    let left_count = if (from_left_index = 0) ||
+                          (from_left_index = ((List.length row) - 1)) then 0
+                     else 1 in
+    let right_count = if (from_right_index = 0) ||
+                          (from_right_index = ((List.length row) - 1)) then 0
+                      else 1 in
+
+    let count = left_count + right_count in
+    if from_left_index = from_right_index then count - 1
+    else count in
 
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 0)) = 1);
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 1)) = 2);
+  (* assert ((visible_trees_count_hori_inner (List.nth_exn rows 2)) = 1); *)
   
   (* let effective_rows = (List.drop_last_exn (List.drop rows 1)) in *)
   (* let visible_trees_rows = (List.fold (List.map effective_rows *)
