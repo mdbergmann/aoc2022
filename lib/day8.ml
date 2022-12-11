@@ -45,19 +45,18 @@ let day_8 input =
     let (_, from_right_index) = visible_trees_from_right_on_row row in
 
     ExtLib.print (from_left_index, from_right_index);
-    let left_count = if (from_left_index = 0) ||
-                          (from_left_index = ((List.length row) - 1)) then 0
-                     else 1 in
-    let right_count = if (from_right_index = 0) ||
-                          (from_right_index = ((List.length row) - 1)) then 0
-                      else 1 in
+    let right_edge_index = (List.length row -1) in
+    ExtLib.print right_edge_index;
+    match (from_left_index, from_right_index) with
+    | (0, 0) -> 0
+    | (lindex, rindex) when (lindex = rindex) && (lindex = right_edge_index) -> 0
+    | (0, rindex) when rindex = right_edge_index -> 0
+    | (lindex, rindex) when lindex = rindex -> 1
+    | _ -> 2
+  in
 
-    let count = left_count + right_count in
-    if (from_left_index = from_right_index) &&
-         ((from_left_index > 0) || (from_left_index < ((List.length row) - 1)))
-    then count - 1
-    else count in
-
+  let row1 = visible_trees_count_hori_inner (List.nth_exn rows 0) in
+  ExtLib.print row1;
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 0)) = 1);
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 1)) = 2);
   let row3 = visible_trees_count_hori_inner (List.nth_exn rows 2) in
