@@ -17,7 +17,7 @@ let day_8 input =
   let visible_trees_from_left_on_row row =
     let visible_index = ref 0 in
     let visible_elem = ref 0 in
-    List.iteri row ~f:(fun i elem ->
+    List.iteri (List.drop_last_exn row) ~f:(fun i elem ->
         if elem > !visible_elem
         then (
           visible_elem := elem;
@@ -29,7 +29,7 @@ let day_8 input =
   let visible_trees_from_right_on_row row =
     let visible_index = ref 0 in
     let visible_elem = ref 0 in
-    List.iteri (List.rev row) ~f:(fun i elem ->
+    List.iteri (List.rev (List.drop row 1)) ~f:(fun i elem ->
         if elem > !visible_elem
         then (
           visible_elem := elem;
@@ -46,22 +46,22 @@ let day_8 input =
 
     ExtLib.print (from_left_index, from_right_index);
     let right_edge_index = (List.length row -1) in
-    ExtLib.print right_edge_index;
-    match (from_left_index, from_right_index) with
+    let count = match (from_left_index, from_right_index) with
     | (0, 0) -> 0
     | (lindex, rindex) when (lindex = rindex) && (lindex = right_edge_index) -> 0
     | (0, rindex) when rindex = right_edge_index -> 0
     | (lindex, rindex) when lindex = rindex -> 1
-    | _ -> 2
+    | (0, _) -> 1
+    | (_, rindex) when rindex = right_edge_index -> 1
+    | _ -> 2 in
+    ExtLib.print count;
+    count
   in
 
-  let row1 = visible_trees_count_hori_inner (List.nth_exn rows 0) in
-  ExtLib.print row1;
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 0)) = 1);
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 1)) = 2);
-  let row3 = visible_trees_count_hori_inner (List.nth_exn rows 2) in
-  ExtLib.print row3;
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 2)) = 0);
+  assert ((visible_trees_count_hori_inner (List.nth_exn rows 2)) = 1);
+  assert ((visible_trees_count_hori_inner (List.nth_exn rows 3)) = 1);
   
   (* let effective_rows = (List.drop_last_exn (List.drop rows 1)) in *)
   (* let visible_trees_rows = (List.fold (List.map effective_rows *)
