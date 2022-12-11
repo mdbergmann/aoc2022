@@ -62,13 +62,13 @@ let day_8 input =
   assert (visible_trees_rows = 9);
 
   let cols =
-    let outer = Array.create ~len:(List.length (List.nth_exn rows 0)) [||] in
+    let outer = Array.create ~len:(List.length rows)
+                  (Array.create ~len:(List.length rows) 0) in
     List.iteri rows ~f:(fun i row ->
-        Array.set outer i (Array.create ~len:(List.length rows) 0);
         List.iteri row
           ~f:(fun j elem ->
-            let inner = (Array.get outer i) in
-            Array.set inner j elem;
+            let inner = (Array.get outer j) in
+            Array.set inner i elem;
           );
       );
     outer in
