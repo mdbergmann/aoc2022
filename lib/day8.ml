@@ -62,13 +62,13 @@ let day_8 input =
     indices
   in
 
-  let hori_count indices = List.length indices in
+  (* let hori_count indices = List.length indices in *)
   
-  assert (hori_count (visible_trees_row_inner (List.nth_exn rows 0) 0) = 1);
-  assert (hori_count (visible_trees_row_inner (List.nth_exn rows 1) 1) = 2);
-  assert (hori_count (visible_trees_row_inner (List.nth_exn rows 2) 2) = 2);
-  assert (hori_count (visible_trees_row_inner (List.nth_exn rows 3) 3) = 1);
-  assert (hori_count (visible_trees_row_inner (List.nth_exn rows 4) 4) = 2);
+  (* assert (hori_count (visible_trees_row_inner (List.nth_exn rows 0) 0) = 1); *)
+  (* assert (hori_count (visible_trees_row_inner (List.nth_exn rows 1) 1) = 2); *)
+  (* assert (hori_count (visible_trees_row_inner (List.nth_exn rows 2) 2) = 2); *)
+  (* assert (hori_count (visible_trees_row_inner (List.nth_exn rows 3) 3) = 1); *)
+  (* assert (hori_count (visible_trees_row_inner (List.nth_exn rows 4) 4) = 2); *)
   
   let effective_rows = (List.drop_last_exn (List.drop rows 1)) in
   let visible_tree_indices_rows = List.fold (List.mapi effective_rows
@@ -76,9 +76,9 @@ let day_8 input =
                                                  visible_trees_row_inner x i))
                                     ~init:[]
                                     ~f:List.append in
-  let visible_trees_rows = List.length visible_tree_indices_rows in
+  (* let visible_trees_rows = List.length visible_tree_indices_rows in *)
   (* print_indices visible_tree_indices_rows; *)
-  assert (visible_trees_rows = 5);
+  (* assert (visible_trees_rows = 5); *)
 
   let cols =
     let outer = Array.create ~len:(List.length rows) [||] in
@@ -102,8 +102,8 @@ let day_8 input =
   (*                                   ~f:(fun (l_index, r_index) -> (r_index, l_index)) in *)
   
   (* print_indices visible_tree_indices_cols; *)
-  let visible_trees_cols = List.length visible_tree_indices_cols in
-  assert (visible_trees_cols = 3);
+  (* let visible_trees_cols = List.length visible_tree_indices_cols in *)
+  (* assert (visible_trees_cols = 3); *)
 
   let combined_indices = List.append (List.filter visible_tree_indices_cols
                                         ~f:(fun (row, col) ->
@@ -131,5 +131,13 @@ let%test "day 8 - demo test, 1" =
   printf "Result day_8 (demo, 1): %s\n" (ExtLib.dump result);
   result = 21
 
-(* let prep_input = *)
-(*   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day6_1.txt" *)
+let prep_input =
+  In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day8_1.txt"
+
+let%test "day 8 - real test, 1" =
+  print_endline "Prepping output.";
+  let result = day_8 prep_input
+  in
+  printf "Result day_8 (real, 1): %s\n" (ExtLib.dump result);
+  true
+  (* result = 21 *)
