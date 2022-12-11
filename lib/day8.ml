@@ -71,7 +71,7 @@ let day_8 input =
             Array.set inner i elem;
           );
       );
-    outer in
+    Array.to_list (Array.rev outer) in
   ExtLib.print cols;
   
   21
