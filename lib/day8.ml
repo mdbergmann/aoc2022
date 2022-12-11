@@ -114,6 +114,9 @@ let day_8 input =
                            ))
                            visible_tree_indices_rows in
   print_indices combined_indices;
+  let row_len = List.length rows in
+  let complete_count = (List.length combined_indices) + 4 + (4 * (row_len - 2)) in
+  ExtLib.print complete_count;
   
   21
 
