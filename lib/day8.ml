@@ -40,7 +40,7 @@ let day_8 input =
     (!visible_elem, adjusted_index)
   in
 
-  let visible_trees_count_hori row =
+  let visible_trees_count_hori_inner row =
     let (_, from_left_index) = visible_trees_from_left_on_row row in
     let (_, from_right_index) = visible_trees_from_right_on_row row in
 
@@ -50,13 +50,14 @@ let day_8 input =
       then 1
       else 2
     else 0 in
+
+  let visible_trees_rows = Array.fold (Array.map rows
+                                         ~f:visible_trees_count_hori_inner)
+                             ~init:0
+                             ~f:(+) in
   
-  let visible_trees_count_row1 = visible_trees_count_hori (Array.get rows 0) in
-  let visible_trees_count_row2 = visible_trees_count_hori (Array.get rows 1) in
-  ExtLib.print visible_trees_count_row1;
-  ExtLib.print visible_trees_count_row2;
-  assert (visible_trees_count_row1 = 1);
-  assert (visible_trees_count_row2 = 2);
+  ExtLib.print visible_trees_rows;
+  assert (visible_trees_rows = 5);
   21
 
 let demo_input = "30373
