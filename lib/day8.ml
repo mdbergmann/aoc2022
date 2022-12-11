@@ -51,13 +51,14 @@ let day_8 input =
       else 2
     else 0 in
 
-  let visible_trees_rows = Array.fold (Array.map rows
+  let visible_trees_rows = (Array.fold (Array.map rows
                                          ~f:visible_trees_count_hori_inner)
                              ~init:0
-                             ~f:(+) in
+                             ~f:(+))
+                           + ((Array.length rows) * 2) in
   
   ExtLib.print visible_trees_rows;
-  assert (visible_trees_rows = 5);
+  assert (visible_trees_rows = 5 + 10);
   21
 
 let demo_input = "30373
