@@ -93,13 +93,13 @@ let day_8 input =
     Array.to_list (Array.map outer ~f:Array.to_list) in
   
   let effective_cols = (List.drop_last_exn (List.drop cols 1)) in
-  let visible_tree_indices_cols_tmp = List.fold (List.mapi effective_cols
+  let visible_tree_indices_cols = List.fold (List.mapi effective_cols
                                                    ~f:(fun i x ->
                                                      visible_trees_row_inner x i))
                                         ~init:[]
                                         ~f:List.append in
-  let visible_tree_indices_cols = List.map visible_tree_indices_cols_tmp
-                                    ~f:(fun (l_index, r_index) -> (r_index, l_index)) in
+  (* let visible_tree_indices_cols = List.map visible_tree_indices_cols_tmp *)
+  (*                                   ~f:(fun (l_index, r_index) -> (r_index, l_index)) in *)
   
   print_indices visible_tree_indices_cols;
   let visible_trees_cols = List.length visible_tree_indices_cols in
