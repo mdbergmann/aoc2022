@@ -15,37 +15,33 @@ let day_8 input =
                  List.map (String.to_list line) ~f:(fun c ->
                      (Char.to_int c) - (Char.to_int '0'))) in
   let visible_trees_from_left_on_row row index =
-    let visible_count = ref 0 in
     let recorded_indices = ref [] in
     let visible_elem = ref (List.nth_exn row 0) in
     List.iteri (List.drop_last_exn row) ~f:(fun i elem ->
         if elem > !visible_elem
         then (
           visible_elem := elem;
-          visible_count := !visible_count + 1;
           recorded_indices := (index, i) :: !recorded_indices;
       ));
-    (!recorded_indices, !visible_count)
+    !recorded_indices
   in
 
   let visible_trees_from_right_on_row row index =
-    let visible_count = ref 0 in
     let recorded_indices = ref [] in
     let visible_elem = ref (List.last_exn row) in
     List.iteri (List.rev (List.drop row 1)) ~f:(fun i elem ->
         if elem > !visible_elem
         then (
           visible_elem := elem;
-          visible_count := !visible_count + 1;
           let adjusted_index = (List.length row) - (i + 1) in
           recorded_indices := (index, adjusted_index) :: !recorded_indices;
       ));
-    (!recorded_indices, !visible_count)
+    !recorded_indices
   in
 
   let visible_trees_count_hori_inner row index =
-    let (l_indices, _from_left_count) = visible_trees_from_left_on_row row index in
-    let (r_indices, _from_right_count) = visible_trees_from_right_on_row row index in
+    let l_indices = visible_trees_from_left_on_row row index in
+    let r_indices = visible_trees_from_right_on_row row index in
 
     let new_r_indices = List.filter r_indices
                           ~f:(fun (row, col) ->
