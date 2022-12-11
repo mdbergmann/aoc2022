@@ -61,7 +61,7 @@ let day_8 input =
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 1)) = 2);
   let row3 = visible_trees_count_hori_inner (List.nth_exn rows 2) in
   ExtLib.print row3;
-  (* assert ((visible_trees_count_hori_inner (List.nth_exn rows 2)) = 1); *)
+  assert ((visible_trees_count_hori_inner (List.nth_exn rows 2)) = 0);
   
   (* let effective_rows = (List.drop_last_exn (List.drop rows 1)) in *)
   (* let visible_trees_rows = (List.fold (List.map effective_rows *)
