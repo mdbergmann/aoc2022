@@ -97,13 +97,14 @@ let day_8 input =
   let visible_trees_cols = List.length visible_tree_indices_cols in
   assert (visible_trees_cols = 3);
 
-  let combined_indices = List.filter visible_tree_indices_cols
-                           ~f:(fun (row, col) ->
-                             not (List.exists visible_tree_indices_rows
-                                    ~f:(fun (rowl, coll) ->
-                                      row = rowl && col = coll
-                               ))
-                           ) in
+  let combined_indices = List.append (List.filter visible_tree_indices_cols
+                                        ~f:(fun (row, col) ->
+                                          not (List.exists visible_tree_indices_rows
+                                                 ~f:(fun (rowl, coll) ->
+                                                   row = rowl && col = coll
+                                            ))
+                           ))
+                           visible_tree_indices_rows in
   ExtLib.print combined_indices;
   
   21
