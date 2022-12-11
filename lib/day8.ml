@@ -9,6 +9,14 @@ let make_range s e  =
     else s :: range_fun (s+1) e lst
   in range_fun s e []
 
+let print_index index =
+  let (l, r) = index in
+  print_string ("(" ^ (Int.to_string l) ^ "," ^ (Int.to_string r) ^ ")")
+
+let print_indices lst =
+  List.iter lst ~f:print_index;
+  print_endline ""
+
 let day_8 input =
   let lines = String.split_lines input in
   let rows = List.map lines ~f:(fun line ->
@@ -70,6 +78,7 @@ let day_8 input =
                                     ~f:List.append in
   let visible_trees_rows = List.length visible_tree_indices_rows in
   ExtLib.print visible_tree_indices_rows;
+  print_indices visible_tree_indices_rows;
   assert (visible_trees_rows = 5);
 
   let cols =
