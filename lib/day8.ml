@@ -135,7 +135,6 @@ let prep_input =
   In_channel.read_all "/Users/mbergmann/Development/MySources/aoc2022/input/day8_1.txt"
 
 let%test "day 8 - real test, 1" =
-  print_endline "Prepping output.";
   let result = day_8 prep_input
   in
   printf "Result day_8 (real, 1): %s\n" (ExtLib.dump result);
