@@ -69,6 +69,7 @@ let day_8 input =
           ~f:(fun j elem ->
             let inner = (Array.get outer j) in
             Array.set inner j elem;
+            Array.set outer j inner;
           );
       );
     outer in
