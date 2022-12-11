@@ -47,10 +47,8 @@ let day_8 input =
     let (l_index, from_left_count) = visible_trees_from_left_on_row row in
     let (r_index, from_right_count) = visible_trees_from_right_on_row row in
 
-    ExtLib.print ((l_index, from_left_count), (r_index, from_right_count));
     let count = from_left_count + from_right_count in
     let filtered_count = if l_index = r_index then count - 1 else count in
-    ExtLib.print filtered_count;
     filtered_count
   in
 
@@ -60,14 +58,14 @@ let day_8 input =
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 3)) = 1);
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 4)) = 2);
   
-  (* let effective_rows = (List.drop_last_exn (List.drop rows 1)) in *)
-  (* let visible_trees_rows = (List.fold (List.map effective_rows *)
-  (*                                        ~f:visible_trees_count_hori_inner) *)
-  (*                            ~init:0 *)
-  (*                            ~f:(+)) in *)
+  let effective_rows = (List.drop_last_exn (List.drop rows 1)) in
+  let visible_trees_rows = (List.fold (List.map effective_rows
+                                         ~f:visible_trees_count_hori_inner)
+                             ~init:0
+                             ~f:(+)) in
   
-  (* ExtLib.print visible_trees_rows; *)
-  (* assert (visible_trees_rows = 2); *)
+  ExtLib.print visible_trees_rows;
+  assert (visible_trees_rows = 5);
 
   (* let cols = *)
   (*   let outer = Array.create ~len:(List.length rows) [||] in *)
