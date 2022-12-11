@@ -113,7 +113,7 @@ let day_8 input =
                                             ))
                            ))
                            visible_tree_indices_rows in
-  ExtLib.print combined_indices;
+  print_indices combined_indices;
   
   21
 
