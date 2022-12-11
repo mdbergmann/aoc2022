@@ -77,7 +77,6 @@ let day_8 input =
                                     ~init:[]
                                     ~f:List.append in
   let visible_trees_rows = List.length visible_tree_indices_rows in
-  ExtLib.print visible_tree_indices_rows;
   print_indices visible_tree_indices_rows;
   assert (visible_trees_rows = 5);
 
@@ -102,7 +101,7 @@ let day_8 input =
   let visible_tree_indices_cols = List.map visible_tree_indices_cols_tmp
                                     ~f:(fun (l_index, r_index) -> (r_index, l_index)) in
   
-  ExtLib.print visible_tree_indices_cols;
+  print_indices visible_tree_indices_cols;
   let visible_trees_cols = List.length visible_tree_indices_cols in
   assert (visible_trees_cols = 3);
 
