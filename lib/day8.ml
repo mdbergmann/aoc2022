@@ -39,7 +39,7 @@ let day_8 input =
     !recorded_indices
   in
 
-  let visible_trees_count_hori_inner row index =
+  let visible_trees_hori_inner row index =
     let l_indices = visible_trees_from_left_on_row row index in
     let r_indices = visible_trees_from_right_on_row row index in
 
@@ -53,19 +53,20 @@ let day_8 input =
     ExtLib.print new_r_indices;
     let indices = List.append l_indices new_r_indices in
     ExtLib.print indices;
-    let count = List.length indices in
-    count
+    indices
   in
 
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 0) 0) = 1);
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 1) 1) = 2);
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 2) 2) = 2);
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 3) 3) = 1);
-  assert ((visible_trees_count_hori_inner (List.nth_exn rows 4) 4) = 2);
+  let hori_count indices = List.length indices in
+  
+  assert (hori_count (visible_trees_hori_inner (List.nth_exn rows 0) 0) = 1);
+  assert (hori_count (visible_trees_hori_inner (List.nth_exn rows 1) 1) = 2);
+  assert (hori_count (visible_trees_hori_inner (List.nth_exn rows 2) 2) = 2);
+  assert (hori_count (visible_trees_hori_inner (List.nth_exn rows 3) 3) = 1);
+  assert (hori_count (visible_trees_hori_inner (List.nth_exn rows 4) 4) = 2);
   
   let effective_rows = (List.drop_last_exn (List.drop rows 1)) in
   let visible_trees_rows = (List.fold (List.mapi effective_rows
-                                         ~f:(fun i x -> visible_trees_count_hori_inner x i))
+                                         ~f:(fun i x -> hori_count (visible_trees_hori_inner x i)))
                               ~init:0
                               ~f:(+)) in  
   ExtLib.print visible_trees_rows;
@@ -86,7 +87,7 @@ let day_8 input =
 
   (* let effective_cols = (List.drop_last_exn (List.drop cols 1)) in *)
   (* let visible_trees_cols = (List.fold (List.map effective_cols *)
-  (*                                        ~f:visible_trees_count_hori_inner) *)
+  (*                                        ~f:visible_trees_hori_inner) *)
   (*                            ~init:0 *)
   (*                            ~f:(+)) in *)
   (* ExtLib.print visible_trees_cols; *)
