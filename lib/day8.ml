@@ -62,14 +62,16 @@ let day_8 input =
   assert (visible_trees_rows = 9);
 
   let cols =
-    let outer = ref [] in
-    List.iteri rows ~f:(fun _ row ->
-        List.iter row
-          ~f:(fun elem ->
-            outer := [elem] :: !outer
+    let outer = Array.create ~len:(List.length rows) [||] in
+    List.iteri rows ~f:(fun i row ->
+        Array.set outer i (Array.create ~len:(List.length row) 0);
+        List.iteri row
+          ~f:(fun j elem ->
+            let inner = (Array.get outer i) in
+            Array.set inner j elem;
           );
       );
-    List.map !outer ~f:List.rev in
+    outer in
   ExtLib.print cols;
   
   21
