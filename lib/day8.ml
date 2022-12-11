@@ -72,7 +72,7 @@ let day_8 input =
           );
         outer := !new_rows :: !outer
       );
-    !outer in
+    List.map !outer ~f:List.rev in
   ExtLib.print cols;
   
   21
