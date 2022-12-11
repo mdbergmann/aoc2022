@@ -60,6 +60,21 @@ let day_8 input =
   
   ExtLib.print visible_trees_rows;
   assert (visible_trees_rows = 9);
+
+  let cols =
+    let outer = ref [] in
+    let new_rows = ref [] in
+    List.iter rows ~f:(fun row ->
+        new_rows := [];
+        List.iter row
+          ~f:(fun elem ->
+            new_rows := elem :: !new_rows
+          );
+        outer := !new_rows :: !outer
+      );
+    !outer in
+  ExtLib.print cols;
+  
   21
 
 let demo_input = "30373
