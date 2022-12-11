@@ -39,11 +39,21 @@ let day_8 input =
       (Array.length row) - (!visible_index + 1) in
     (!visible_elem, adjusted_index)
   in
+
+  let visible_trees_count_hori row =
+    let (_, from_left_index) = visible_trees_from_left_on_row row in
+    let (_, from_right_index) = visible_trees_from_right_on_row row in
+
+    if (from_left_index > 0) && (from_right_index < (Array.length row))
+    then 
+      if (from_left_index = from_right_index)
+      then 1
+      else 2
+    else 0 in
   
-  let visible_hori_row_1_left = visible_trees_from_left_on_row (Array.get rows 0) in
-  let visible_hori_row_1_right = visible_trees_from_right_on_row (Array.get rows 0) in
-  ExtLib.print visible_hori_row_1_left;
-  ExtLib.print visible_hori_row_1_right;
+  let visible_trees_count_row1 = visible_trees_count_hori (Array.get rows 0) in
+  ExtLib.print visible_trees_count_row1;
+  assert (visible_trees_count_row1 = 1);
   21
 
 let demo_input = "30373
