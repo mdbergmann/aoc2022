@@ -55,11 +55,10 @@ let day_8 input =
   let visible_trees_rows = (List.fold (List.map effective_rows
                                          ~f:visible_trees_count_hori_inner)
                              ~init:0
-                             ~f:(+))
-                           + ((List.length effective_rows) * 2) in
+                             ~f:(+)) in
   
   ExtLib.print visible_trees_rows;
-  assert (visible_trees_rows = 9);
+  assert (visible_trees_rows = 3);
 
   let cols =
     let outer = Array.create ~len:(List.length rows) [||] in
@@ -78,8 +77,7 @@ let day_8 input =
   let visible_trees_cols = (List.fold (List.map effective_cols
                                          ~f:visible_trees_count_hori_inner)
                              ~init:0
-                             ~f:(+))
-                           + ((List.length effective_cols) * 2) in
+                             ~f:(+)) in
   
   ExtLib.print visible_trees_cols;
   
