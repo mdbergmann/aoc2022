@@ -83,8 +83,6 @@ let day_8 input =
           );
       );
     Array.to_list (Array.map outer ~f:Array.to_list) in
-  ExtLib.print cols;
-
   
   let effective_cols = (List.drop_last_exn (List.drop cols 1)) in
   let visible_tree_indices_cols_tmp = List.fold (List.mapi effective_cols
