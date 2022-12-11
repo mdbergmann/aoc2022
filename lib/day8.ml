@@ -52,8 +52,11 @@ let day_8 input =
     else 0 in
   
   let visible_trees_count_row1 = visible_trees_count_hori (Array.get rows 0) in
+  let visible_trees_count_row2 = visible_trees_count_hori (Array.get rows 1) in
   ExtLib.print visible_trees_count_row1;
+  ExtLib.print visible_trees_count_row2;
   assert (visible_trees_count_row1 = 1);
+  assert (visible_trees_count_row2 = 2);
   21
 
 let demo_input = "30373
