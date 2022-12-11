@@ -77,9 +77,9 @@ let day_8 input =
   let visible_trees_cols = (List.fold (List.map effective_cols
                                          ~f:visible_trees_count_hori_inner)
                              ~init:0
-                             ~f:(+)) in
-  
+                             ~f:(+)) in  
   ExtLib.print visible_trees_cols;
+  assert (visible_trees_cols = 5);
   
   21
 
