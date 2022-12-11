@@ -69,7 +69,6 @@ let day_8 input =
                                     ~init:[]
                                     ~f:List.append in
   let visible_trees_rows = List.length visible_tree_indices_rows in
-  ExtLib.print visible_trees_rows;
   assert (visible_trees_rows = 5);
 
   let cols =
