@@ -71,8 +71,17 @@ let day_8 input =
             Array.set outer j new_inner;
           );
       );
-    Array.to_list (Array.map outer ~f:Array.to_list) in
+    Array.to_list (Array.map outer ~f:Array.to_list) in  
   ExtLib.print cols;
+
+  let effective_cols = (List.drop_last_exn (List.drop cols 1)) in
+  let visible_trees_cols = (List.fold (List.map effective_cols
+                                         ~f:visible_trees_count_hori_inner)
+                             ~init:0
+                             ~f:(+))
+                           + ((List.length effective_cols) * 2) in
+  
+  ExtLib.print visible_trees_cols;
   
   21
 
