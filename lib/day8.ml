@@ -53,7 +53,9 @@ let day_8 input =
                       else 1 in
 
     let count = left_count + right_count in
-    if from_left_index = from_right_index then count - 1
+    if (from_left_index = from_right_index) &&
+         ((from_left_index > 0) || (from_left_index < ((List.length row) - 1)))
+    then count - 1
     else count in
 
   assert ((visible_trees_count_hori_inner (List.nth_exn rows 0)) = 1);
