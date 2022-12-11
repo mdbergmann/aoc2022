@@ -63,14 +63,11 @@ let day_8 input =
 
   let cols =
     let outer = ref [] in
-    let new_rows = ref [] in
-    List.iter rows ~f:(fun row ->
-        new_rows := [];
+    List.iteri rows ~f:(fun _ row ->
         List.iter row
           ~f:(fun elem ->
-            new_rows := elem :: !new_rows
+            outer := [elem] :: !outer
           );
-        outer := !new_rows :: !outer
       );
     List.map !outer ~f:List.rev in
   ExtLib.print cols;
