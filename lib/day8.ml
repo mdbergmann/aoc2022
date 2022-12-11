@@ -68,8 +68,8 @@ let day_8 input =
         List.iteri row
           ~f:(fun j elem ->
             let inner = (Array.get outer j) in
-            Array.set inner j elem;
-            Array.set outer j inner;
+            let new_inner = Array.append inner [|elem|] in
+            Array.set outer j new_inner;
           );
       );
     outer in
