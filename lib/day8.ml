@@ -117,8 +117,7 @@ let day_8 input =
   let row_len = List.length rows in
   let complete_count = (List.length combined_indices) + 4 + (4 * (row_len - 2)) in
   ExtLib.print complete_count;
-  
-  21
+  complete_count
 
 let demo_input = "30373
 25512
