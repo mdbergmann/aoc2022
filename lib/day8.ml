@@ -64,10 +64,10 @@ let day_8 input =
   let cols =
     let outer = Array.create ~len:(List.length rows)
                   (Array.create ~len:(List.length rows) 0) in
-    List.iteri rows ~f:(fun i row ->
+    List.iteri rows ~f:(fun _i row ->
         List.iteri row
           ~f:(fun j elem ->
-            let inner = (Array.get outer i) in
+            let inner = (Array.get outer j) in
             Array.set inner j elem;
           );
       );
